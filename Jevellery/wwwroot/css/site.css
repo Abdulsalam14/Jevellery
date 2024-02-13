@@ -1,0 +1,624 @@
+﻿html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+
+body {
+    margin-bottom: 60px;
+    position: relative;
+    background-color: #faf7f5;
+    box-sizing: border-box;
+    font-family: 'Montserrat',sans-serif;
+    height: 100%;
+}
+
+
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 30px;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+    transition: 2.5s position
+}
+
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: white;
+    border-bottom: 1px solid lightgray;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+nav > ul {
+    padding-left: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    width: 50%;
+    align-items: center;
+    justify-content: space-around;
+    color: black;
+}
+
+    nav > ul > li > a {
+        text-transform: uppercase;
+        color: black !important;
+        font-size: 12px !important;
+    }
+
+.default-logo {
+    width: 33.4%;
+}
+
+    .default-logo > img {
+        width: 25%;
+    }
+
+.info {
+    width: 33.3%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+
+.login-icon > i {
+    color: #b8b8b8;
+}
+
+.login-icon {
+    font-size: 18px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.header-cart {
+    color: #db9662;
+    display: flex;
+    align-items: center;
+    font-size: 17px;
+    font-weight: 600;
+    justify-content: space-around;
+    width: 15%;
+    cursor: pointer;
+}
+
+
+.cart-icon {
+    position: relative;
+}
+
+#cart-item-count {
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    top: -5px;
+    left: 15px;
+    border-radius: 50%;
+    background-color: #db9662;
+    color: black;
+    font-size: 12px;
+}
+
+
+main {
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.main-line {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%;
+    width: 1px;
+    background-color: #dee2e6;
+    z-index: -1;
+}
+
+
+.title {
+    font-family: 'Cormorant Garamond',serif;
+    font-size: 2.2em !important;
+    font-weight: 600 !important;
+    line-height: 1.4em;
+    padding-right: 20px;
+}
+
+.title-text {
+    font-family: 'Cormorant Garamond',serif;
+    font-style: italic;
+    font-size: 0.8em;
+}
+
+
+nav {
+    width: 33.3%;
+    background-color: transparent;
+}
+
+.home {
+    /*    position:absolute;
+    top:0;
+    left:0;
+    width:100%*/
+}
+
+.home-first {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    z-index: 4;
+}
+
+
+.home-first-img {
+    background-image: url("/img/hero-01.jpg");
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-attachment: fixed;
+    background-size: 50% 100%;
+    width: 50%;
+    height: 100%;
+}
+
+.home-first-text {
+    color: black;
+    padding: 100px 50px;
+    width: 50%;
+    display: flex;
+    justify-content: right;
+}
+
+    .home-first-text > div {
+        width: 60%;
+        margin-right: 30px
+    }
+
+.explore-btn {
+    display: inline-block;
+    font-weight: 400;
+    font-size: 12px;
+    text-transform: uppercase;
+    padding: 0px 25px;
+    border: 1px solid black;
+    text-align: center;
+    letter-spacing: 2px;
+    margin-top: 50px;
+    transition: 0.5s;
+    cursor: pointer;
+    font-family: 'Montserrat',sans-serif;
+}
+
+    .explore-btn:hover {
+        color: white;
+        background-color: black;
+    }
+
+
+.home-second {
+    padding: 100px 30px;
+    text-align: center;
+}
+
+    .home-second .title {
+        font-size: 3em !important;
+        padding-right: 0;
+    }
+
+    .home-second .explore-btn {
+        border: none;
+        text-decoration: underline;
+        margin-top: 20px;
+        padding-bottom: 40px;
+    }
+
+        .home-second .explore-btn:hover {
+            opacity: 0.6;
+            color: initial;
+            background-color: initial;
+        }
+
+.categories-container {
+    display: flex;
+    justify-content: space-between;
+    width: 63%;
+    margin: auto;
+}
+
+.category-card {
+    width: 32%;
+    position: relative;
+    padding-bottom: 20px;
+    cursor: pointer;
+}
+
+    .category-card img {
+        width: 100%;
+        display: block;
+    }
+
+.category-text {
+    position: absolute;
+    bottom: 8%;
+    left: 40%;
+    text-transform: uppercase;
+    font-family: 'Cormorant Garamond',serif;
+}
+
+    .category-text p {
+        margin: 0;
+        font-size: .9em;
+        font-weight: 700;
+    }
+
+
+    .category-text span {
+        font-size: .75em;
+        font-weight: 700;
+        opacity: .7;
+    }
+
+
+.home-third {
+    padding: 100px 0px;
+    width: 39%;
+    margin: auto;
+    text-align: center;
+}
+
+.ring-logo {
+    margin-bottom: 50px;
+}
+
+.home-third .title {
+    font-style: italic;
+    font-size: 3em !important;
+    padding-right: 0;
+    margin-bottom: 0.7em;
+}
+
+.home-third p {
+    color: #7a7a7a;
+}
+
+.home-third .explore-btn {
+    padding: 10px 15px;
+    margin-top: 30px;
+}
+
+.home-fourth, .home-eighth {
+    padding: 100px 30px;
+    text-align: center;
+}
+
+    .home-fourth .title, .home-eighth .title {
+        font-size: 3em !important;
+        padding-right: 0;
+    }
+
+    .home-fourth .explore-btn, .home-eighth .explore-btn {
+        border: none;
+        text-decoration: underline;
+        margin-top: 20px;
+        padding-bottom: 40px;
+    }
+
+        .home-fourth .explore-btn:hover, .home-eighth .explore-btn:hover {
+            opacity: 0.6;
+            color: initial;
+            background-color: initial;
+        }
+
+    .home-fourth .category-card, .home-eighth .category-card{
+        cursor:default;
+    }
+
+    .home-fourth .category-card img, .home-eighth .category-card img {
+        cursor: pointer;
+    }
+
+
+    .card-icons {
+        position: absolute;
+        top: 5%;
+        right: 5%;
+        font-size: 17px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+.basket, .view {
+    border-radius: 50%;
+    color: black;
+    background-color:white;
+    width: 1.5em;
+    height: 1.5em;
+    justify-content: center;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+    position: relative;
+    border: none;
+    line-height: initial;
+}
+
+    .basket > i, .view > i {
+        opacity: 0.7;
+    }
+
+
+.card-icon-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    justify-content: right;
+}
+
+.tooltiptext {
+    visibility: hidden;
+    white-space: nowrap;
+    font-size: 0.7em;
+    margin-right: 10px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 3px;
+    padding: 0.7em 0.9em;
+    position: absolute;
+    top: -5px;
+    right: 100%;
+}
+
+    .tooltiptext::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        margin-top: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent transparent black;
+    }
+
+.basket:hover .tooltiptext {
+    visibility: visible;
+}
+
+.view:hover .tooltiptext {
+    visibility: visible;
+}
+
+.home-fourth .category-card:hover .card-icons, .home-eighth .category-card:hover .card-icons {
+    opacity: 1;
+}
+
+/*.home-fourth .category-card {
+    cursor: initial;
+}*/
+
+.card-text {
+    text-align: left;
+    padding: 0 20px;
+    margin-top: 10px;
+}
+
+.card-categoryname {
+    font-size: .85em;
+    margin-bottom: 0.5em;
+    display: block;
+    line-height: 1.3;
+    opacity: .6;
+}
+
+.card-productname {
+    margin-bottom: 0.5em;
+    padding: 0;
+    font-size: 1em;
+    font-weight: 600;
+    font-family: 'Cormorant Garamond',serif;
+    line-height: 1.3em;
+    cursor: pointer;
+}
+
+    .card-productname:hover {
+        color: initial;
+    }
+
+.card-price {
+    line-height: 1.3;
+    font-weight: 700;
+    font-size: .9em;
+    color: rgba(0,0,0,0.65)
+}
+
+.home-fifth {
+    padding: 50px 30px;
+    text-align: right;
+    position: relative;
+}
+
+.home-fifth-first {
+    display: flex;
+    justify-content: right;
+}
+
+    .home-fifth-first img {
+        width: 50%;
+        height: 610px;
+        object-fit: cover;
+    }
+
+.home-fifth-second {
+    width: 35%;
+    background-color: white;
+    padding: 60px 110px;
+    text-align: center;
+    position: absolute;
+    top: 20%;
+    left: 18.2%;
+}
+
+.home-fifth-third {
+    position: absolute;
+    top: 10%;
+    left: 32.5%;
+}
+
+.home-fifth .title {
+    font-size: 3em !important;
+    padding-right: 0;
+    margin-top: 20px;
+    line-height: 1.3em;
+}
+
+.home-fifth .title-text {
+    font-size: 2em !important;
+    font-weight: 600;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+.home-fifth .explore-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+}
+
+.home-sixth {
+    padding: 100px 0;
+    width: 31.6%;
+    margin: auto;
+    text-align: center;
+}
+
+.home-sixth-first {
+    position: relative;
+}
+
+.home-sixth-second {
+    position: absolute;
+    bottom: 5%;
+    left: 40%;
+}
+
+    .home-sixth-second h5 {
+        text-transform: uppercase;
+        font-size: 16px;
+        font-weight: 400;
+        text-align: center;
+    }
+
+
+.home-sixth .title-text {
+    font-size: 1.8em;
+    font-weight: 600;
+    padding-top: 30px;
+    margin-bottom: 20px;
+}
+
+.divider {
+    width: 50px;
+    border-bottom: 1px solid #0000001A;
+    padding: 30px 0px 0px 0px;
+}
+
+.home-seventh {
+    padding: 50px 30px;
+}
+
+.collections {
+    display: flex;
+    justify-content: space-around;
+}
+
+.collection-card {
+    width: 32.5%;
+    position: relative;
+}
+
+    .collection-card img {
+        width: 100%;
+    }
+
+.collection-card-overlay {
+    background-color: transparent;
+    background-image: linear-gradient(180deg, black 0%, #00000000 70%);
+    opacity: 0.5;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+
+.collection-card-text {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    top: 0;
+    left: 0;
+    text-align: center;
+    color: white;
+    margin-top: 80px;
+}
+
+    .collection-card-text a {
+        font-family: 'Cormorant Garamond',serif;
+        font-weight: 600;
+        font-size: 1.4em;
+        text-decoration: underline;
+        color: white;
+    }
+
+        .collection-card-text a:hover {
+            color: white;
+        }
+
+    .collection-card-text p {
+        font-size: 18px;
+    }
+
+    .collection-card-text h6 {
+        font-size: 12px;
+        font-weight: 400;
+    }
+
+
+.home-eighth .category-card {
+    width: 49%;
+}
+
+.home-eighth .categories-container {
+    margin-top:20px;
+}
