@@ -18,13 +18,17 @@
 
 </head>
 <body>
-    <header id="header">
+    @{
+        var currentController = ViewContext.RouteData.Values["controller"]?.ToString().ToLower();
+        var color = currentController == "shop" ? "white; " : "#faf7f5;";
+    }
+    <header id="header" style="background-color:@color;">
         <nav>
             <ul>
-                <li><a href="#">home</a></li>
-                <li><a href="#">shop</a></li>
-                <li><a href="#">about</a></li>
-                <li><a href="#">contact</a></li>
+                <li><a style="color:@(currentController == "home" ? "#db9662;" : "black;" )" asp-action="index" asp-controller="home">home</a></li>
+                <li><a style="color:@(currentController == "shop" ? "#db9662;" : "black;" )" asp-action="index" asp-controller="shop">shop</a></li>
+                <li><a style="color:@(currentController == "about" ? "#db9662;" : "black;" )" asp-action="index" asp-controller="about">about</a></li>
+                <li><a style="color:@(currentController == "contact" ? "#db9662;" : "black;" )" asp-action="index" asp-controller="contact">contact</a></li>
             </ul>
         </nav>
         <div class="default-logo">
@@ -46,19 +50,62 @@
 
         </div>
     </header>
+    <div id="scrollTopBtn" class="for-top">
+        <i class="fa-solid fa-chevron-up"></i>
+    </div>
+    <div class="main-line"></div>
+
     <div>
         <main role="main">
             @RenderBody()
         </main>
     </div>
-    <footer class="border-top  text-muted">
-        <div class="container">
-            &copy; 2024 - Jevellery - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="border-top  text-center">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="~/img/logo-retina-300x127.png" />
+            </div>
+            <ul class="footer-menu">
+                <li>
+                    <a href="#">FAQ</a>
+                </li>
+                <li>
+                    <a href="#">Virtual Shopping</a>
+                </li>
+                <li>
+                    <a href="#">Shipping & Returns</a>
+                </li>
+                <li>
+                    <a href="#">Create Your Jewelry</a>
+                </li>
+                <li>
+                    <a href="#">Ring Sizer</a>
+                </li>
+                <li>
+                    <a href="#">Stores</a>
+                </li>
+            </ul>
+            <ul class="footer-icons">
+                <li>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </li>
+            </ul>
+        </div>
+        <div class="copyright border-top">
+            <p>Copyright © 2024 Jewellery Store</p>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

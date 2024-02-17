@@ -21,7 +21,6 @@ html {
 
 
 body {
-    margin-bottom: 60px;
     position: relative;
     background-color: #faf7f5;
     box-sizing: border-box;
@@ -29,6 +28,17 @@ body {
     height: 100%;
 }
 
+.for-top {
+    padding: 4px 8px 2px 8px;
+    background-color: #db9662;
+    color: white;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 99;
+    display: none;
+    cursor: pointer
+}
 
 header {
     position: absolute;
@@ -44,6 +54,57 @@ header {
     transition: 2.5s position
 }
 
+footer {
+    color: rgba(0,0,0,0.65) !important;
+}
+
+.footer-container {
+    padding: 100px 0;
+}
+
+footer ul {
+    list-style: none;
+}
+
+.footer-menu {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 0 30px;
+}
+
+.footer-icons {
+    display: flex;
+    justify-content: center;
+    padding: 20px 30px 0 30px;
+}
+
+    .footer-icons a {
+        font-size: 20px;
+    }
+
+
+footer a {
+    padding: 0 20px;
+    color: rgba(0,0,0,0.65) !important;
+    font-size: 15px;
+}
+
+.footer-logo img {
+    width: 160px;
+    height: 68px;
+    max-width: 100%;
+}
+
+.copyright {
+    padding: 30px;
+}
+
+    .copyright p {
+        margin-bottom: 0;
+        font-size: 15px;
+    }
 
 .sticky {
     position: fixed;
@@ -71,7 +132,6 @@ nav > ul {
 
     nav > ul > li > a {
         text-transform: uppercase;
-        color: black !important;
         font-size: 12px !important;
     }
 
@@ -149,8 +209,8 @@ main {
 
 .title {
     font-family: 'Cormorant Garamond',serif;
-    font-size: 2.2em !important;
-    font-weight: 600 !important;
+    font-size: 2.2em;
+    font-weight: 600;
     line-height: 1.4em;
     padding-right: 20px;
 }
@@ -168,10 +228,6 @@ nav {
 }
 
 .home {
-    /*    position:absolute;
-    top:0;
-    left:0;
-    width:100%*/
 }
 
 .home-first {
@@ -294,7 +350,7 @@ nav {
 
 .home-third {
     padding: 100px 0px;
-    width: 39%;
+    width: 36%;
     margin: auto;
     text-align: center;
 }
@@ -305,7 +361,7 @@ nav {
 
 .home-third .title {
     font-style: italic;
-    font-size: 3em !important;
+    font-size: 45px;
     padding-right: 0;
     margin-bottom: 0.7em;
 }
@@ -319,12 +375,12 @@ nav {
     margin-top: 30px;
 }
 
-.home-fourth, .home-eighth {
+.home-fourth, .home-eighth, .home-nineth {
     padding: 100px 30px;
     text-align: center;
 }
 
-    .home-fourth .title, .home-eighth .title {
+    .home-fourth .title, .home-eighth .title, .home-nineth .title {
         font-size: 3em !important;
         padding-right: 0;
     }
@@ -342,28 +398,28 @@ nav {
             background-color: initial;
         }
 
-    .home-fourth .category-card, .home-eighth .category-card{
-        cursor:default;
+    .home-fourth .category-card, .home-eighth .category-card {
+        cursor: default;
     }
 
-    .home-fourth .category-card img, .home-eighth .category-card img {
-        cursor: pointer;
-    }
+        .home-fourth .category-card img, .home-eighth .category-card img {
+            cursor: pointer;
+        }
 
 
-    .card-icons {
-        position: absolute;
-        top: 5%;
-        right: 5%;
-        font-size: 17px;
-        opacity: 0;
-        transition: opacity 0.3s;
-    }
+.card-icons {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    font-size: 17px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
 
 .basket, .view {
     border-radius: 50%;
     color: black;
-    background-color:white;
+    background-color: white;
     width: 1.5em;
     height: 1.5em;
     justify-content: center;
@@ -495,14 +551,14 @@ nav {
     left: 32.5%;
 }
 
-.home-fifth .title {
+.home-fifth .title, .home-tenth .title {
     font-size: 3em !important;
     padding-right: 0;
     margin-top: 20px;
     line-height: 1.3em;
 }
 
-.home-fifth .title-text {
+.home-fifth .title-text, .home-tenth .title-text {
     font-size: 2em !important;
     font-weight: 600;
     font-style: italic;
@@ -620,5 +676,579 @@ nav {
 }
 
 .home-eighth .categories-container {
-    margin-top:20px;
+    margin-top: 20px;
+}
+
+.home-nineth .divider, .home-tenth .divider {
+    padding-top: 15px;
+}
+
+.precious-container {
+    display: flex;
+    width: 60%;
+    margin: auto;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+.precious-card {
+    width: 32%
+}
+
+.precious-img img {
+    width: 100%;
+}
+
+.precious-txt {
+    width: 90%;
+    margin: auto;
+    margin-top: 15px;
+}
+
+    .precious-txt h3 {
+        font-style: italic;
+        font-family: 'Cormorant Garamond',serif;
+        font-weight: 600;
+        font-size: 1.8em;
+    }
+
+    .precious-txt p {
+        color: rgb(122, 122, 122);
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 1.6em;
+    }
+
+
+.home-tenth {
+    padding: 10em 30px;
+    position: relative;
+}
+
+.home-tenth-first {
+    display: flex;
+    justify-content: right;
+    width: 82%;
+    background-color: white;
+    padding: 20px 40px
+}
+
+.home-tenth-second {
+    width: 35%;
+    text-align: center;
+    padding: 40px 40px;
+}
+
+.home-tenth-third {
+    position: absolute;
+    top: 8%;
+    left: 20.1%;
+    height: 100%;
+    width: 30%;
+}
+
+.tenth img {
+    width: 100%;
+    max-width: 100%
+}
+
+.home-tenth .explore-btn {
+    margin-top: 40px;
+    padding: 10px 15px;
+}
+
+
+.home-tenth-second .title {
+    font-size: 2.7em !important;
+}
+
+.home-tenth-second .title-text {
+    font-size: 1.8em !important;
+}
+
+.home-eleventh {
+    padding: 150px 0px 200px 0px;
+    text-align: center;
+}
+
+
+.sale-icon {
+    width: 30%;
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+.home-eleventh-first {
+    width: 70%;
+    margin: auto;
+}
+
+    .home-eleventh-first .title {
+        font-size: 80px;
+        font-style: italic;
+        margin-bottom: 0.6em;
+        padding-right: 0;
+    }
+
+    .home-eleventh-first p {
+        font-family: "Cormorant Garamond", Sans-serif;
+        font-size: 30px;
+        font-style: italic;
+        line-height: 35px;
+        opacity: .8;
+    }
+
+    .home-eleventh-first .explore-btn {
+        margin-top: 30px;
+        padding: 12px 15px;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.about-first {
+    padding: 250px 0px 170px 0px;
+    text-align: center;
+}
+
+.about-first-container {
+    width: 36%;
+    margin: auto;
+}
+
+    .about-first-container .title {
+        font-size: 45px;
+        font-style: italic;
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .about-first-container p, .about-third-txt p {
+        font-weight: 300;
+        font-size: 15px;
+        color: black;
+        line-height: 1.6em;
+    }
+
+.about-first {
+}
+
+.about-second, .about-fourth {
+    padding: 0 30px;
+}
+
+.about-second-first {
+    background-image: url("/img/bg-03.jpg");
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-attachment: fixed;
+    width: 100%;
+    height: 80vh;
+}
+
+.about-third {
+    padding-top: 30px;
+    text-align: left;
+}
+
+.about-third-first {
+    display: flex;
+    width: 100%;
+    justify-content: right;
+}
+
+.about-third-txt {
+    width: 24%;
+    margin-right: 110px;
+}
+
+.about-third-img {
+    width: 50%;
+}
+
+    .about-third-img img {
+        width: 100%;
+        height: 605px;
+        object-fit: cover;
+    }
+
+.about-third-txt .title {
+    font-size: 2.8em;
+    padding-right: 0;
+    margin-top: 125px;
+    line-height: 1.2em;
+}
+
+.about-third .divider {
+    padding-top: 0;
+    margin: 20px 0;
+}
+
+.about-third-txt h5 {
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.2em;
+}
+
+
+.about-fourth-first {
+    background-image: url("/img/bg-08.jpg");
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-attachment: fixed;
+    min-width: 100%;
+    min-height: 94vh;
+    object-fit: cover;
+    position: relative;
+}
+
+.about-fourth-overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    background-image: linear-gradient(45deg, #000000 0%, #00000000 100%);
+    opacity: 0.7;
+    transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+}
+
+.about-fourth-txt {
+    /*    position: absolute;
+    height: 30%;*/
+    width: 34%;
+    color: #FFFFFF !important;
+    margin-top: 22%;
+    margin-left: 20%;
+    background: initial;
+}
+
+    .about-fourth-txt .title {
+        padding-right: 0;
+        font-size: 2.7em;
+        width: 88%;
+    }
+
+    .about-fourth-txt .divider {
+        border-color: white;
+        padding-top: 0;
+        margin: 20px 0;
+    }
+
+    .about-fourth-txt p {
+        width: 80%;
+    }
+
+
+
+
+
+
+.contact-first {
+    padding: 175px 0px 200px 0px;
+    text-align: center;
+}
+
+.contact-first-container {
+    width: 30%;
+    margin: auto;
+}
+
+    .contact-first-container .title {
+        font-size: 5em;
+        padding-right: 0;
+    }
+
+    .contact-first-container .title-text {
+        font-size: 2em;
+        font-weight: 600;
+    }
+
+    .contact-first-container .divider {
+        padding-top: 0;
+        margin: 10px 0;
+    }
+
+
+
+.contact-second {
+    padding: 0 30px;
+}
+
+.contact-second-first {
+    display: flex;
+/*    width: 60%;
+    margin: auto;*/
+    justify-content:right;
+    align-items:center;
+
+}
+
+    .contact-second-first ul {
+        list-style: none;
+    }
+
+.contact-second-text>ul {
+    font-family: "Cormorant Garamond", Sans-serif;
+    font-size: 30px;
+    font-style: italic;
+    line-height: 30px;
+}
+
+.contact-icons{
+    display:flex;
+}
+
+.contact-third {
+    padding: 125px 0;
+    text-align: center;
+}
+
+    .contact-third .title {
+        padding-right: 0;
+        font-size: 2.8em;
+        margin-bottom: 0;
+    }
+
+.contact-card .title {
+    font-size: 2em;
+    margin-bottom: 5px;
+}
+
+
+.contact-container {
+    display: flex;
+    width: 64%;
+    margin: auto;
+    /*justify-content: space-between;*/
+    margin-top: 40px;
+}
+
+.contact-card {
+    padding: 60px 10px 70px 10px;
+    width: 32.4%;
+    background-color: white !important;
+}
+
+.contact-icon {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.contact-card p {
+    margin-top: 0px;
+    font-size: 15px;
+    font-weight: 300;
+    margin-bottom: 35px;
+}
+
+.contact-card .explore-btn {
+    padding: 10px 15px;
+    margin-top: 0;
+}
+
+.contact-second-text h5 {
+    margin-bottom:10px;
+    font-size:15px;
+    text-transform:uppercase;
+    font-weight:400;
+}
+
+.contact-second-text{
+    font-weight:400;
+    text-align:left;
+    margin-right:150px;
+}
+
+    .contact-second-text > ul {
+        margin: 20px 0;
+        color:#7a7a7a;
+    }
+
+        .contact-second-text > ul li{
+            padding:7.5px 0;
+        }
+        .contact-second ul {
+            padding: 0;
+        }
+.contact-second-text>div{
+    margin-top:50px;
+}
+
+.contact-icons ul {
+    display: flex;
+}
+
+.contact-icons i {
+    padding: 12px 12px;
+    border: 1px solid #69727d;
+    border-radius: 50%;
+    color:black;
+}
+
+.contact-icons li{
+    margin-right:10px;
+}
+
+.name-inputs{
+    display:flex;
+    justify-content:space-between;
+}
+
+.name-inputs div{
+    width:48%;
+}
+
+.name-inputs label{
+    font-size:12px;
+    color:#666;
+    
+}
+
+input, textarea {
+    width: 100%;
+    outline: none;
+    display: block;
+    padding: 0.75em;
+    border: 1px solid #dddddd;
+}
+
+
+
+.contact-second-form {
+    width: 50%;
+
+}
+
+    .contact-second-form input {
+    }
+
+    .contact-second-form form {
+        background-color: white;
+        width:100%;
+        color:#666;
+    }
+
+    .contact-second-form textarea {
+        overflow:auto;
+        resize:both;
+        height:120px;
+        max-width:800px;
+    }
+
+label span{
+    margin-left:5px;
+    color:red;
+}
+
+.ss {
+    width:65%;
+    padding: 30px 50px 25px 50px;
+    background-color: white;
+    margin-left:1px;
+}
+
+
+.form-item{
+    margin:20px 0;
+}
+.form-item>label{
+    font-weight: 700;
+}
+
+.contact-second-form .explore-btn{
+    padding:10px 15px;
+    background-color:white;
+    margin:15px 0px;
+}
+
+.shop{
+    padding:150px 0;
+}
+
+.shop-first {
+    background-color: white;
+    width: 70%;
+    margin: auto;
+    padding: 5.34em 6.67em
+}
+
+.shop-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:2.5em;
+}
+
+.filter-btn{
+    border:1px solid black;
+    font-size:13px;
+    display:flex;
+    align-items:center;
+    padding:5px 10px;
+    background-color:white;
+    transition:color,background-color .5s;
+}
+
+    .filter-btn:hover{
+        color:white;
+        background-color:black;
+    }
+
+    .filter-btn svg {
+        width: 14px;
+        height: 14px;
+    }
+
+
+.filter-text{
+    font-weight:700;
+    letter-spacing:2px;
+    padding:0;
+    margin:0;
+    margin-left:5px;
+}
+
+#myDropdown {
+    border: none;
+    max-width: 160px;
+    text-overflow: ellipsis;
+    color:#666;
+}
+
+.shop-top>div{
+    display:flex;
+    align-items:center;
+    font-size:15px;
+    justify-content:space-between;
+
+}
+
+
+.view-icon{
+    margin-left:10px;
+    font-size:17px;
+    cursor:pointer;
+}
+
+.shop-top-right{
+    display:flex;
+    align-items:center;
+}
+
+.active {
+    color: #db9662
 }
