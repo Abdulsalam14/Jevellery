@@ -1,0 +1,48 @@
+﻿@using Jevellery.ViewModels.Account
+@model RegisterViewModel
+
+@{
+    Layout = "_LayoutDemo";
+}
+
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow-lg p-5">
+                <h2 class="text-center mb-4">Register</h2>
+                <form asp-controller="account" asp-action="register" method="post">
+                    <div class="form-group">
+                        <label for="UserName">Username</label>
+                        <input asp-for="Username" id="UserName" class="form-control" placeholder="Enter your username">
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label for="Email">Email</label>
+                        <input asp-for="Email" id="Email" type="email" class="form-control" placeholder="Enter your email">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label for="Password">Password</label>
+                        <input asp-for="Password" id="Password" type="password" class="form-control" placeholder="Enter your password">
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label for="ConfirmPassword">Confirm Password</label>
+                        <input asp-for="ConfirmPassword" id="ConfirmPassword" type="password" class="form-control" placeholder="Confirm your password">
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-warning text-center mt-3">Register</button>
+                    <a asp-action="login" asp-controller="account" class="btn btn-warning mt-3 ml-3">Login</a>
+                </form>
+                <div class="text-center">
+                </div>
+                <div asp-validation-summary="All" class="text-danger mt-3"></div>
+            </div>
+        </div>
+    </div>
+</div>

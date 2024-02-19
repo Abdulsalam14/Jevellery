@@ -1,7 +1,31 @@
+using Jevellery.DAL;
+using Jevellery.Models;
+using Jevellery.Repositories.Abstract;
+using Jevellery.Repositories.Concrete;
+using Jevellery.Services.Abstract;
+using Jevellery.Services.Concrete;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
+
+var conn = builder.Configuration.GetConnectionString("myconn");
+builder.Services.AddDbContext<AppDbContext>(opt =>
+{
+    opt.UseSqlServer(conn);
+});
+
+
+builder.Services.AddIdentity<AppUser, AppRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
 var app = builder.Build();
 

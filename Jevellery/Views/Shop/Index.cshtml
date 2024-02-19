@@ -1,4 +1,7 @@
-﻿<div class="shop">
+﻿@using Jevellery.ViewModels.Shop
+@model ShopVM
+
+<div class="shop">
     <section class="shop-first">
         <div class="shop-container">
             <div class="shop-top">
@@ -8,17 +11,16 @@
                     </span>
                     <span class="filter-text">FILTER</span>
                 </button>
+                @{
+                    var currentSort = ViewContext.RouteData.Values["sort"]?.ToString().ToLower();
+                }
                 <div class="shop-top-right">
-                    <div class="dropdown">
-                        <select id="myDropdown">
-                            <option value="option1">Default sorting</option>
-                            <option value="option2">Sort by popularity</option>
-                            <option value="option3">Sort by average rating</option>
-                            <option value="option4">Sort by latest</option>
-                            <option value="option4">Sort by price:low to high</option>
-                            <option value="option4">Sort by price:high to low</option>
-                        </select>
-                    </div>
+                    <form asp-action="index" asp-controller="shop" method="get">
+                        <div class="dropdown">
+                            <select asp-items="@Model.Selects" name="sort" onchange="this.form.submit()"></select>
+                        </div>
+                    </form>
+
                     <span class="view-icon active">
                         <i class="bi bi-grid-fill"></i>
                     </span>
@@ -28,9 +30,55 @@
                     </span>
                 </div>
             </div>
-            <div></div>
-        </div>
-        <div class="product-container">
+            <div class="product-container">
+                @foreach (var item in Model.Products)
+                {
+                    <div class="category-card">
+                        <a>
+                            <img src="~/img/Products/@(item.Filename).jpg" />
+                        </a>
+                        @if (item.Discount > 0)
+                        {
+                            <div class="card-discount">
+                                <span>-@item.Discount%</span>
+                            </div>
+                        }
+                        <div class="card-icons">
+                            <div class="card-icon-container">
+                                <button type="button" class="basket">
+                                    <span class="tooltiptext">Add to cart</span>
+                                    <i class="bi bi-basket-fill"></i>
+                                </button>
+                            </div>
+                            <div class="card-icon-container">
+                                <button type="button" class="view">
+                                    <span class="tooltiptext">Quick View</span>
+                                    <i class="bi bi-eye-fill"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-text">
+                            <span class="card-categoryname">@item.Category.Name</span>
+                            <a class="">
+                                <h2 class="card-productname">@item.Name</h2>
+                            </a>
+                            @if (item.Discount > 0)
+                            {
+                                var discountPrice = (double)item.Price * ((double)item.Discount / 100);
+                                var price = (double)item.Price - discountPrice;
+                                <span class="card-price disc">$@item.Price</span>
+                                <span class="card-price">$@price</span>
+                            }
+                            else
+                            {
+                                <span class="card-price">$@item.Price</span>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+            <product-list-pager current-page="@Model.CurrentPage"
+                                page-count="@Model.PageCount">
         </div>
     </section>
 </div>

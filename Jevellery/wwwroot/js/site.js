@@ -13,7 +13,7 @@ window.onscroll = function () {
 
     }
 
-    if ( document.documentElement.scrollTop > 20) {
+    if (document.documentElement.scrollTop > 20) {
         document.getElementById("scrollTopBtn").style.display = "block";
     } else {
         document.getElementById("scrollTopBtn").style.display = "none";
@@ -27,3 +27,18 @@ $(function () {
 document.getElementById("scrollTopBtn").addEventListener("click", function () {
     document.documentElement.scrollTop = 0;
 });
+
+
+let overlay = document.getElementById("cart-overlay");
+let cart = document.getElementById("cart");
+function showCart() {
+    overlay.style.display = "flex";
+    cart.style.transform = "translateX(0%)";
+    document.body.style.overflow = 'hidden';
+}
+
+function closeCart() {
+    overlay.style.display = "none";
+    cart.style.transform = "translateX(135%)";
+    document.body.style.overflow = 'initial';
+}

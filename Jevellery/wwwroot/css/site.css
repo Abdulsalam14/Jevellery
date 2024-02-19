@@ -206,6 +206,81 @@ main {
     z-index: -1;
 }
 
+.cart-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    z-index: 10;
+    display:flex;
+    justify-content:right;
+    overflow:hidden;
+    display:none;
+}
+
+.cart {
+    position: fixed;
+    width: 35%;
+    height:100vh;
+    margin-left:65%;
+    z-index: 10;
+    background-color: white;
+    transform: translateX(135%);
+    transition: transform 0.3s ease;
+}
+
+.cart-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:10px 10px 10px 20px;
+    border-bottom:1px solid lightgray;
+}
+
+.cart-top button {
+    background-color:transparent;
+    padding:5px 5px 5px 10px;
+    border:none;
+    font-size:20px;
+}
+
+.cart-top h2{
+    font-weight:500;
+    font-size:15px;
+    margin:0;
+    color:#666;
+}
+
+.cart-second{
+    height:100%;
+}
+.cart-middle{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    height:85%;
+    color:#666;
+}
+
+.empty-text{
+    text-align:center;
+}
+
+
+.cart-bottom {
+    padding: 1.34em;
+    width:100%;
+    height:15%;
+
+}
+
+.cart-bottom .explore-btn{
+    width:100%;
+    padding:10px;
+    color:black;
+    margin:0;
+}
 
 .title {
     font-family: 'Cormorant Garamond',serif;
@@ -1251,4 +1326,42 @@ label span{
 
 .active {
     color: #db9662
+}
+
+.product-container{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.product-container .category-card{
+    width:24%;
+    margin-bottom:30px;
+}
+
+.product-container .category-card:hover .card-icons {
+    opacity: 1;
+}
+
+.card-discount {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    background-color: white;
+    width: fit-content;
+    border-radius: 20px;
+    padding: 0.4em 0.8em;
+    font-size: .87em;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: normal;
+    box-shadow: 0 4px 4px rgba(0,0,0,0.15);
+    color: rgba(0,0,0,0.45);
+}
+
+
+.disc {
+    color: rgba(0,0,0,0.45);
+    text-decoration:line-through;
 }
