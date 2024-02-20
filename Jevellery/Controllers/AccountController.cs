@@ -104,7 +104,7 @@ namespace Jevellery.Controllers
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

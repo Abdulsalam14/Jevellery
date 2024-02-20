@@ -1,0 +1,47 @@
+﻿@model List<CartProduct>
+
+@if (Model.Count > 0)
+{
+    @*     <div class="cart-middle"> *@
+    <ul class="cart-container">
+        @foreach (var item in Model)
+        {
+            <li class="cart-item">
+                <div class="cart-img">
+                    @* <img src=$"~/img/featured-product2.jpg" /> *@
+                    <img src="~/img/Products/@(item.Product.Filename).jpg" />
+                </div>
+                <div class="cart-main">
+                    <div class="cart-main-left">
+                        <a class="">
+                            <h2 class="card-productname">@item.Product.Name</h2>
+                        </a>
+                        <div class="cart-quantity">
+                            <span>-</span>
+                            <span>@item.Quantity</span>
+                            <span>+</span>
+                        </div>
+                    </div>
+                    <div class="cart-main-right">
+                        <span onclick="removeItem" class="cart-x"><i class="fa-solid fa-xmark"></i></span>
+                        <span class="card-price">$@item.Product.Price</span>
+                    </div>
+                </div>
+            </li>
+
+        }
+    </ul>
+    <div class="cart-item">
+    </div>
+    @* </div> *@
+
+}
+else
+{
+    <div class="cart-middle">
+        <p class="empty-text">No products In the cart</p>
+    </div>
+    <div class="cart-bottom">
+        <a asp-controller="shop" asp-action="index" class="explore-btn">continue shopping</a>
+    </div>
+}

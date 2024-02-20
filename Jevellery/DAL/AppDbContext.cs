@@ -17,10 +17,6 @@ namespace Jevellery.DAL
         public DbSet<CartProduct> CartProducts { get; set; }
 
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            
-        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

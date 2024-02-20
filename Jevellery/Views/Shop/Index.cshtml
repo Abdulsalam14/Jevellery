@@ -16,8 +16,8 @@
                 }
                 <div class="shop-top-right">
                     <form asp-action="index" asp-controller="shop" method="get">
-                        <div class="dropdown">
-                            <select asp-items="@Model.Selects" name="sort" onchange="this.form.submit()"></select>
+                        <div class="drop">
+                            <select id="myDropdown" asp-items="@Model.Selects" name="sort" onchange="this.form.submit()"></select>
                         </div>
                     </form>
 
@@ -45,7 +45,7 @@
                         }
                         <div class="card-icons">
                             <div class="card-icon-container">
-                                <button type="button" class="basket">
+                                <button onclick="addToCart(@item.Id)" type="button" class="basket">
                                     <span class="tooltiptext">Add to cart</span>
                                     <i class="bi bi-basket-fill"></i>
                                 </button>
@@ -77,8 +77,7 @@
                     </div>
                 }
             </div>
-            <product-list-pager current-page="@Model.CurrentPage"
-                                page-count="@Model.PageCount">
+            <product-list-pager current-page=@Model.CurrentPage sort="@Model.Sort" page-count=@Model.PageCount></product-list-pager>
         </div>
     </section>
 </div>

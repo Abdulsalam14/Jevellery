@@ -9,5 +9,6 @@ namespace Jevellery.ViewModels.Shop
         public List<SelectListItem> Selects { get; set; }
         public int PageCount { get; set; }
         public int CurrentPage { get; set; }
+        public string Sort { get; set; }
     }
 }

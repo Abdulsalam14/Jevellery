@@ -29,7 +29,7 @@ namespace Jevellery.Repositories.Concrete
 
         public async Task<Cart> Get(Expression<Func<Cart, bool>> expression)
         {
-            return await _appDbContext.Carts.Include(c=>c.CartProducts).FirstOrDefaultAsync(expression);
+            return await _appDbContext.Carts.FirstOrDefaultAsync(expression);
         }
 
         public async Task<List<Cart>> GetAll()

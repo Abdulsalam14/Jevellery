@@ -6,8 +6,8 @@ namespace Jevellery.TagHelpers
     [HtmlTargetElement("product-list-pager")]
     public class PagingTagHelper : TagHelper
     {
-        [HtmlAttributeName("page-size")]
-        public int PageSize { get; set; }
+        //[HtmlAttributeName("page-size")]
+        //public int PageSize { get; set; }
         [HtmlAttributeName("page-count")]
         public int PageCount { get; set; }
         [HtmlAttributeName("sort")]
@@ -22,20 +22,27 @@ namespace Jevellery.TagHelpers
             if (PageCount > 1)
             {
                 sb.Append("<ul class='pagination'>");
+                if (CurrentPage > 1)
+                {
+                    sb.Append($"<li class=\"page-item\"><a class=\"page-link page\" href=/shop/index?sort={Sort}&page={CurrentPage - 1}>Prev</a></li>");
+                }
                 for (int i = 1; i <= PageCount; i++)
                 {
                     sb.AppendFormat("<li class='{0}'>", (i == CurrentPage) ? "page-item active" : "page-item");
 
-                    sb.AppendFormat("<a class='page-link' href='/admin/index?sort={0}&page={1}'>{2}</a>",
-                  Sort, i, i);
-                    sb.AppendFormat("<a class='page-link' href='/product/index?sort={0}&page={1}'>{2}</a>",
-                        i, Sort, i);
+                    sb.AppendFormat("<a class='page-link page' href='/shop/index?sort={0}&page={1}'>{2}</a>",
+                        Sort, i, i);
                     sb.Append("</li>");
 
+                }
+                if (CurrentPage != PageCount)
+                {
+                    sb.Append($"<li class=\"page-item\"><a class=\"page-link page\" href=/shop/index?sort={Sort}&page={CurrentPage + 1}>Next</a></li>");
                 }
                 sb.Append("</ul>");
             }
             output.Content.SetHtmlContent(sb.ToString());
         }
+
     }
 }

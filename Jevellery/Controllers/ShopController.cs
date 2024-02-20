@@ -70,7 +70,8 @@ namespace Jevellery.Controllers
                     }
                 },
                 CurrentPage = CurrentPage,
-                PageCount = PageCount
+                PageCount = PageCount,
+                Sort = sort
             };
             return View(model);
         }

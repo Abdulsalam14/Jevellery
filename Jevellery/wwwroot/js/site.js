@@ -42,3 +42,35 @@ function closeCart() {
     cart.style.transform = "translateX(135%)";
     document.body.style.overflow = 'initial';
 }
+
+function addToCart(productId) {
+    $.ajax({
+        url: `/Cart/Add?productId=${productId}`,
+        type: 'GET',
+        success: function (data) {
+            getCartProducts();
+        },
+
+        error: function () {
+            alert('Error while getting user info');
+        }
+    });
+}
+
+function getCartProducts() {
+    $.ajax({
+        url: `/Cart/GetCartProducts`,
+        type: 'GET',
+        success: function (data) {
+            console.log(data)
+            $("#cart-content").html(data);
+        },
+
+        error: function () {
+            alert('Error while getting user info');
+        }
+    });
+}
+
+
+getCartProducts();

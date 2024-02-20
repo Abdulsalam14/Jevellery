@@ -2,6 +2,8 @@
 using Jevellery.Models;
 using Jevellery.Repositories.Abstract;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace Jevellery.Repositories.Concrete
@@ -35,6 +37,41 @@ namespace Jevellery.Repositories.Concrete
         public async Task<List<CartProduct>> GetAll()
         {
             return await _dbContext.CartProducts.ToListAsync();
+        }
+
+        //public async Task<List<CartProduct>> GetList(Expression<Func<CartProduct, bool>> filter = null, Func<IQueryable<CartProduct>, 
+        //    IIncludableQueryable<CartProduct, object>> include = null)
+        //{
+        //    IQueryable<CartProduct> query = _dbContext.Set<CartProduct>();
+
+        //    if (filter != null)
+        //    {
+        //        query = query.Where(filter);
+        //    }
+
+        //    if (include != null)
+        //    {
+        //        query = include(query);
+        //    }
+        //    return await query.ToListAsync();
+        //}
+
+        public async Task<List<CartProduct>> GetList(Expression<Func<CartProduct, bool>> filter = null, Func<IQueryable<CartProduct>,
+            IQueryable<CartProduct>> select = null)
+        {
+            IQueryable<CartProduct> query = _dbContext.Set<CartProduct>();
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            if (select != null)
+            {
+                query = select(query);
+            }
+
+            return await query.ToListAsync();
         }
 
         public async Task Update(CartProduct entity)
