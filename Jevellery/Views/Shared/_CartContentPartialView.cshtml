@@ -1,12 +1,13 @@
-﻿@model List<CartProduct>
+﻿@using Jevellery.ViewModels.Cart
+@model CartVM
 
-@if (Model.Count > 0)
+@if (Model.CartProducts.Count > 0)
 {
-    @*     <div class="cart-middle"> *@
     <ul class="cart-container">
-        @foreach (var item in Model)
+        @for (int i = 0; i < Model.CartProducts.Count; i++)
         {
-            <li class="cart-item">
+            var item = Model.CartProducts[i];
+            <li class="cart-item @(i == 0 ? "first" : "")">
                 <div class="cart-img">
                     @* <img src=$"~/img/featured-product2.jpg" /> *@
                     <img src="~/img/Products/@(item.Product.Filename).jpg" />
@@ -17,31 +18,41 @@
                             <h2 class="card-productname">@item.Product.Name</h2>
                         </a>
                         <div class="cart-quantity">
-                            <span>-</span>
-                            <span>@item.Quantity</span>
-                            <span>+</span>
+                            <span onclick="minusCartItem(@item.Id)">-</span>
+                            @* <span id="cart-quantity-text">@item.Quantity</span> *@
+                            <input id="quantityInput" type="number" inputmode="numeric" maxlength="2" step="1" asp-for="@item.Quantity" oninput="inputFunc(event,@item.Id)" />
+                            <span onclick="plusCartItem(@item.Id)">+</span>
                         </div>
                     </div>
                     <div class="cart-main-right">
-                        <span onclick="removeItem" class="cart-x"><i class="fa-solid fa-xmark"></i></span>
+                        <span class="cart-x"><i onclick="removeItem(@item.Id)" class="fa-solid fa-xmark"></i></span>
                         <span class="card-price">$@item.Product.Price</span>
                     </div>
                 </div>
             </li>
-
         }
     </ul>
-    <div class="cart-item">
-    </div>
-    @* </div> *@
 
+    <div class="cart-bottom">
+        <div class="subtotal">
+            <p>Subtotal</p>
+            <p id="cart-sum">$@Model.Sum</p>
+        </div>
+        <span style="display:none;" id="cartItem-count">@Model.Count</span>
+        <div class="cart-buttons">
+            <a asp-controller="shop" asp-action="index" class="explore-btn">View Cart</a>
+            <a asp-controller="shop" asp-action="index" class="explore-btn">Checkout</a>
+        </div>
+    </div>
 }
 else
 {
     <div class="cart-middle">
         <p class="empty-text">No products In the cart</p>
     </div>
-    <div class="cart-bottom">
-        <a asp-controller="shop" asp-action="index" class="explore-btn">continue shopping</a>
+    <div class="cart-bottom empty">
+        <div class="cart-buttons">
+            <a asp-controller="shop" asp-action="index" class="explore-btn">continue shopping</a>
+        </div>
     </div>
 }

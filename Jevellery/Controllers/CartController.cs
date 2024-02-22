@@ -1,5 +1,6 @@
 ﻿using Jevellery.Models;
 using Jevellery.Services.Abstract;
+using Jevellery.ViewModels.Cart;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -63,6 +64,48 @@ namespace Jevellery.Controllers
             }
             return Ok();
         }
+
+        public async Task<IActionResult>Remove(int id)
+        {
+            var cartProduct=await _cartProductService.Get(cp=>cp.Id == id);
+            if (cartProduct == null) return NotFound();
+            await _cartProductService.DeleteAsync(cartProduct);
+            return Ok();
+        }
+
+        public async Task<IActionResult> PlusCartItem(int id)
+        {
+            var cartProduct = await _cartProductService.Get(cp => cp.Id == id);
+            if (cartProduct == null) return NotFound();
+            cartProduct.Quantity++;
+            await _cartProductService.UpdateAsync(cartProduct);
+            return Ok();
+        }
+
+        public async Task<IActionResult> UpdateCartItem(int id,int quantity)
+        {
+            var cartProduct = await _cartProductService.Get(cp => cp.Id == id);
+            if (cartProduct == null) return NotFound();
+            cartProduct.Quantity=quantity;
+            await _cartProductService.UpdateAsync(cartProduct);
+            return Ok();
+        }
+
+        public async Task<IActionResult> MinusCartItem(int id)
+        {
+            var cartProduct = await _cartProductService.Get(cp => cp.Id == id);
+            if (cartProduct == null) return NotFound();
+            if(cartProduct.Quantity>0)
+                cartProduct.Quantity--;
+            else
+            {
+                RedirectToAction("Remove",new { id = id });
+            }
+            await _cartProductService.UpdateAsync(cartProduct);
+            return Ok();
+        }
+
+
         public async Task<IActionResult> GetCartProducts()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
@@ -70,7 +113,14 @@ namespace Jevellery.Controllers
             var cart = await _cartService.Get(c => c.UserId == user.Id);
 
             var cartProducts= await _cartProductService.GetCartProductsByCartId(cart.Id);
-            return PartialView("_CartContentPartialView",cartProducts);
+            var model = new CartVM
+            {
+                CartProducts = cartProducts,
+                Sum = cartProducts.Sum(c => c.Product.Price*c.Quantity),
+                Count = cartProducts.Count()
+            };
+
+            return PartialView("_CartContentPartialView", model);
         }
     }
 }
