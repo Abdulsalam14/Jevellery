@@ -1,0 +1,149 @@
+﻿@using Jevellery.ViewModels.Productt
+@model ProductVM
+
+
+<div class="product">
+    <div class="product-first">
+        <div class="product-top">
+            <div class="product-img">
+                <img src="~/img/Products/@(Model.Product.Filename).jpg" />
+                <div onclick="showImage()" class="zoom">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+            </div>
+            <div class="product-info">
+                <div class="product-routes">
+                    <a asp-action="Index" asp-controller="home">Home</a>
+                    <span>/</span>
+                    <a asp-action="index" asp-controller="shop" asp-route-categoryId="@Model.Product.CategoryId">@Model.Product.Category.Name</a>
+                    <span>/</span>
+                    <span>@Model.Product.Name</span>
+                </div>
+                <a asp-action="index" asp-controller="shop" asp-route-categoryId="@Model.Product.CategoryId">@Model.Product.Category.Name</a>
+                <h2 class="title">@Model.Product.Name</h2>
+                <div>
+                    <span class="card-price">$@Model.Product.Price</span>
+                    <span>+ Free Shipping</span>
+                </div>
+                <p>@Model.Product.Description</p>
+                <div class="product-add">
+                    <div class="cart-quantity">
+                        <span onclick="minusProductQuantity()">-</span>
+                        @* <span id="cart-quantity-text">@item.Quantity</span> *@
+                        <input id="productQuantityInput" type="number" inputmode="numeric" maxlength="2" step="1" value="1" />
+                        <span onclick="plusProductQuantity()">+</span>
+                    </div>
+                    <button onclick="addToCartPR(@Model.Product.Id)" class="explore-btn">
+                        <span>Add To cart</span>
+                    </button>
+                </div>
+                <div class="product-info-bottom">
+                    <span>Category:</span>
+                    <a asp-action="index" asp-controller="shop" asp-route-categoryId="@Model.Product.CategoryId">@Model.Product.Category.Name</a>
+                </div>
+            </div>
+        </div>
+        <div class="image-overlay">
+            <div class="filter-sec-top">
+                <i onclick="closeImage()" class="fa-solid fa-xmark"></i>
+            </div>
+            <div class="image-overlay-first">
+                <div class="overlay-img">
+                    <img src="~/img/Products/@(Model.Product.Filename).jpg" />
+                    <div class="product-filename">@Model.Product.Filename</div>
+                </div>
+            </div>
+        </div>
+        <div class="product-second">
+            <ul class="prod-desc-com">
+                <li class="activee">Description</li>
+                <li>Reviews(0)</li>
+            </ul>
+            <div class="product-tab1">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat one.</p>
+            </div>
+            <div class="product-tab2">
+                <form id="reviewForm" runat="server">
+                    <div>
+                        <label for="rating">Your rating *</label>
+                        <select id="rating" name="rating" required>
+                            <option value="">Select</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="review">Your review *</label>
+                        <textarea id="review" name="review" rows="4" cols="50" required></textarea>
+                    </div>
+                    <div>
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required />
+                    </div>
+                    <div>
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required />
+                    </div>
+                    <div>
+                        <input type="submit" value="Submit" />
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div class="product-third">
+            <h2 class="title">Related Products</h2>
+            <div class="related-products">
+                @foreach (var item in Model.RelatedProducts)
+                {
+                    <div class="category-card">
+                        <a asp-action="index" asp-controller="product" asp-route-productId="@item.Id">
+                            <img src="~/img/Products/@(item.Filename).jpg" />
+                        </a>
+                        @if (item.Discount > 0)
+                        {
+                            <div class="card-discount">
+                                <span>-@item.Discount%</span>
+                            </div>
+                        }
+                        <div class="card-icons">
+                            <div class="card-icon-container">
+                                <button onclick="addToCart(@item.Id)" type="button" class="basket">
+                                    <span class="tooltiptext">Add to cart</span>
+                                    <i class="bi bi-basket-fill"></i>
+                                </button>
+                            </div>
+                            <div class="card-icon-container">
+                                <button type="button" class="view">
+                                    <span class="tooltiptext">Quick View</span>
+                                    <i class="bi bi-eye-fill"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-text">
+                            <span class="card-categoryname">@item.Category.Name</span>
+                            <a asp-action="index" asp-controller="product" asp-route-productId="@item.Id">
+                                <h2 class="card-productname">@item.Name</h2>
+                            </a>
+                            @if (item.Discount > 0)
+                            {
+                                var discountPrice = (double)item.Price * ((double)item.Discount / 100);
+                                var price = (double)item.Price - discountPrice;
+                                <span class="card-price disc">$@item.Price</span>
+                                <span class="card-price">$@price</span>
+                            }
+                            else
+                            {
+                                <span class="card-price">$@item.Price</span>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+</div>

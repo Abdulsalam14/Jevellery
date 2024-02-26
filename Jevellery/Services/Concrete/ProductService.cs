@@ -1,6 +1,7 @@
 ﻿using Jevellery.Models;
 using Jevellery.Repositories.Abstract;
 using Jevellery.Services.Abstract;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace Jevellery.Services.Concrete
@@ -33,6 +34,11 @@ namespace Jevellery.Services.Concrete
         public async Task<List<Product>> GetAllAsync()
         {
             return await _repository.GetAll();
+        }
+
+        public async Task<List<Product>> GetProductsByCategory(int id)
+        {
+            return await _repository.GetList(p => p.CategoryId == id,p=>p.Include(p=>p.Category));
         }
 
         public async Task UpdateAsync(Product entity)

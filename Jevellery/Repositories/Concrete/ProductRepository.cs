@@ -29,8 +29,25 @@ namespace Jevellery.Repositories.Concrete
 
         public async Task<Product> Get(Expression<Func<Product, bool>> expression)
         {
-            var pr= await  _appDbContext.Products.FirstOrDefaultAsync(expression);
+            var pr= await  _appDbContext.Products.Include(p=>p.Category).FirstOrDefaultAsync(expression);
             return pr;
+        }
+        public async Task<List<Product>> GetList(Expression<Func<Product, bool>> filter = null, Func<IQueryable<Product>,
+     IQueryable<Product>> select = null)
+        {
+            IQueryable<Product> query = _appDbContext.Set<Product>();
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            if (select != null)
+            {
+                query = select(query);
+            }
+
+            return await query.ToListAsync();
         }
 
 

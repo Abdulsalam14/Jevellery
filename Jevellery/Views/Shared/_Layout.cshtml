@@ -20,7 +20,7 @@
 <body>
     @{
         var currentController = ViewContext.RouteData.Values["controller"]?.ToString().ToLower();
-        var color = currentController == "shop" ? "white; " : "";
+        var color = currentController == "shop" || currentController== "product" ? "white; " : "";
     }
     <header id="header" style="background-color:@color;">
         <nav>
@@ -85,47 +85,6 @@
             </div>
         </div>
     </div>
-    <div class="filter-sect">
-        <div class="filter-sec-top">
-            <button onclick="closeFilterSect()" type="button"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="wrapper">
-            <h3 class="title">Filter by price</h3>
-            <div class="slider">
-                <div class="progress"></div>
-            </div>
-            <div class="range-input">
-                <input type="range" min="240" max="390" value="240" class="min-range" />
-                <input type="range" min="240" max="390" value="390" class="max-range" />
-            </div>
-            <div class="price-input">
-                <div class="field">
-                    <span class="price-value">$240</span>
-                    <span class="price-value">$390</span>
-                </div>
-            </div>
-            <div class="filter-price-buttons">
-                <button onclick="applyFilter()" class="explore-btn">
-                    <span>Apply</span>
-                </button>
-            </div>
-        </div>
-        <div class="filter-category-sect">
-            <div class="filter-category-top">
-                <h2 class="title">
-                    Filter by Categories
-                    <span class="filter-arrow-icon"><i class="fa-solid fa-angle-down"></i></span>
-
-                </h2>
-                <ul class="filder-categories-container">
-                    <li>sss</li>
-                    <li>sss</li>
-                    <li>sss</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="cart-overlay2"></div>
     <div>
         <main role="main">
             @RenderBody()

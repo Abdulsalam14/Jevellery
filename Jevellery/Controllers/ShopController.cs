@@ -9,19 +9,26 @@ namespace Jevellery.Controllers
     public class ShopController : Controller
     {
         private readonly IProductService _productService;
+        private readonly ICategoryService _categoryService;
 
-        public ShopController(IProductService productService)
+        public ShopController(IProductService productService, ICategoryService categoryService)
         {
             _productService = productService;
+            _categoryService = categoryService;
         }
 
-        public async Task<IActionResult> Index(string sort = "default",int page=1)
+        public async Task<IActionResult> Index(string sort = "default", int page = 1, int categoryId =0 , int min = 0, int max = 0)
         {
-            var products = await _productService.GetAllAsync();
-            int pageSize = 4;
-            var PageCount = ((int)Math.Ceiling(products.Count / (double)pageSize));
-            products = products.Skip((page - 1) * pageSize).Take(pageSize).ToList();
-            var CurrentPage = page;
+            List<Product> products;
+            if (categoryId>0 )
+            {
+                products = await _productService.GetProductsByCategory(categoryId);
+            }
+            else
+            {
+                products = await _productService.GetAllAsync();
+
+            }
             if (sort == "latest")
             {
                 products = products.OrderByDescending(p => p.Id).ToList();
@@ -33,8 +40,12 @@ namespace Jevellery.Controllers
             }
             else if (sort == "low")
             {
-                products.OrderBy(p => p.Price).ToList();
+                products=products.OrderBy(p => p.Price).ToList();
             }
+            int pageSize = 4;
+            var PageCount = ((int)Math.Ceiling(products.Count / (double)pageSize));
+            products = products.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            var CurrentPage = page;
             var model = new ShopVM
             {
                 Products = products,
@@ -71,7 +82,12 @@ namespace Jevellery.Controllers
                 },
                 CurrentPage = CurrentPage,
                 PageCount = PageCount,
-                Sort = sort
+                Sort = sort,
+                CategoryId = categoryId,
+                Categories = await _categoryService.GetAllAsync(),
+                FilterMax=max,
+                FilterMin=min
+                
             };
             return View(model);
         }

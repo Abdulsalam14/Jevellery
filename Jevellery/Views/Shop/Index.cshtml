@@ -4,6 +4,10 @@
 <div class="shop">
     <section class="shop-first">
         <div class="shop-container">
+            @if (Model.CategoryId > 0)
+            {
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            }
             <div class="shop-top">
                 <button onclick="showFilter()" type="button" class="filter-btn">
                     <span class="filter-icon">
@@ -16,6 +20,7 @@
                 }
                 <div class="shop-top-right">
                     <form asp-action="index" asp-controller="shop" method="get">
+                        <input type="hidden" name="categoryId" value="@Model.CategoryId" />
                         <div class="drop">
                             <select id="myDropdown" asp-items="@Model.Selects" name="sort" onchange="this.form.submit()"></select>
                         </div>
@@ -34,7 +39,7 @@
                 @foreach (var item in Model.Products)
                 {
                     <div class="category-card">
-                        <a>
+                        <a asp-action="index" asp-controller="product" asp-route-productId="@item.Id">
                             <img src="~/img/Products/@(item.Filename).jpg" />
                         </a>
                         @if (item.Discount > 0)
@@ -59,7 +64,7 @@
                         </div>
                         <div class="card-text">
                             <span class="card-categoryname">@item.Category.Name</span>
-                            <a class="">
+                            <a asp-action="index" asp-controller="product" asp-route-productId="@item.Id">
                                 <h2 class="card-productname">@item.Name</h2>
                             </a>
                             @if (item.Discount > 0)
@@ -77,7 +82,64 @@
                     </div>
                 }
             </div>
-            <product-list-pager current-page=@Model.CurrentPage sort="@Model.Sort" page-count=@Model.PageCount></product-list-pager>
+            <product-list-pager current-page=@Model.CurrentPage sort="@Model.Sort" categoryId="@Model.CategoryId" page-count=@Model.PageCount></product-list-pager>
+            <div class="filter-sect">
+                <div class="filter-sec-top">
+                    <button onclick="closeFilterSect()" type="button"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="wrapper">
+                    <h3 class="title">Filter by price</h3>
+                    <div class="slider">
+                        <div class="progress"></div>
+                    </div>
+                    <form asp-controller="shop" asp-action="index" method="get">
+                        <input type="hidden" name="categoryId" value="@Model.CategoryId" />
+                        <input type="hidden" name="page" value="@Model.CurrentPage" />
+                        <input type="hidden" name="sort" value="@Model.Sort" />
+
+                        <div class="range-input">
+                            <input type="range" min="240" max="390" asp-for="@Model.FilterMin" value="240" class="min-range" />
+                            <input type="range" min="240" max="390" asp-for="@Model.FilterMax" value="390" class="max-range" />
+                        </div>
+
+                        <div class="price-input">
+                            <div class="field">
+                                <span class="price-value">$240</span>
+                                <span class="price-value">$390</span>
+                            </div>
+                        </div>
+                        <div class="filter-price-buttons">
+                            <button type="submit" onclick="applyFilter()" class="explore-btn">
+                                <span>Apply</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="filter-category-sect">
+                    <div class="filter-category-top">
+                        <h2 class="title" onclick="showFilterCategories()">
+                            Filter by Categories
+                            <span class="filter-arrow-icon"><i class="fa-solid fa-angle-down"></i></span>
+
+                        </h2>
+                    </div>
+                    <ul class="filter-categories-container">
+                        @foreach (var item in Model.Categories)
+                        {
+                            <li class="filter-category-card">
+                                <a asp-action="index" asp-controller="shop" asp-route-categoryId="@item.Id" class="filter-category-card-img">
+                                    <img src="~/img/@(item.Filename).jpg" />
+
+                                </a>
+                                <a sp-action="index" asp-controller="shop" asp-route-categoryId="@item.Id">@item.Name</a>
+                                <span>(@item.Products.Count)</span>
+                            </li>
+
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div onclick="closeFilterSect()" class="cart-overlay2"></div>
         </div>
     </section>
 </div>
