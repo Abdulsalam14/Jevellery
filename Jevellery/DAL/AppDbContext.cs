@@ -30,12 +30,13 @@ namespace Jevellery.DAL
                 new Product()
                 {
                     Id = 1,
-                    Name = "Minola Golden Ring",
+                    Name = "Minola Golden Earrings",
                     Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat two.",
-                    Price = 345.00M,
-                    CategoryId = 3,
+                    Price = 325.00M,
+                    CategoryId = 1,
                     Discount = 0,
-                    Filename = "product-01"
+                    Filename = "product-01",
+                    IsNewArrival = true,
                 },
                 new Product()
                 {
@@ -45,7 +46,8 @@ namespace Jevellery.DAL
                     Price = 325.00M,
                     CategoryId = 2,
                     Discount = 0,
-                    Filename = "product-02"
+                    Filename = "product-02",
+                    IsNewArrival=true,
                 },
                 new Product()
                 {
@@ -95,7 +97,8 @@ namespace Jevellery.DAL
                     Price = 325.00M,
                     CategoryId = 1,
                     Discount = 0,
-                    Filename = "product-07"
+                    Filename = "product-07",
+                    IsNewArrival = true
                 },
                 new Product()
                 {
@@ -115,7 +118,8 @@ namespace Jevellery.DAL
                     Price = 325.00M,
                     CategoryId = 1,
                     Discount = 0,
-                    Filename = "product-09"
+                    Filename = "product-09",
+                    IsFeatured=true
                 },
                 new Product()
                 {
@@ -155,7 +159,8 @@ namespace Jevellery.DAL
                     Price = 325.00M,
                     CategoryId = 3,
                     Discount = 0,
-                    Filename = "product-013"
+                    Filename = "product-013",
+                    IsFeatured = true
                 }
             );
 

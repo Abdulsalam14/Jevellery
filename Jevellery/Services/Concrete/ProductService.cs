@@ -36,6 +36,11 @@ namespace Jevellery.Services.Concrete
             return await _repository.GetAll();
         }
 
+        public async Task<List<Product>> GetNewArrivalsProdust()
+        {
+            return await _repository.GetList(p => p.IsNewArrival == true, p => p.Include(p => p.Category));
+        }
+
         public async Task<List<Product>> GetProductsByCategory(int id)
         {
             return await _repository.GetList(p => p.CategoryId == id,p=>p.Include(p=>p.Category));

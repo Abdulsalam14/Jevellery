@@ -18,7 +18,7 @@ namespace Jevellery.Controllers
         {
             var product = await _productService.Get(p => p.Id == productId);
             var relatedProducts = await _productService.GetProductsByCategory(product.Category.Id);
-            var model = new ProductVM
+            var model = new ProductIndexVM
             {
                 Product = product,
                 RelatedProducts = relatedProducts.Where(p => p.Id != productId).Take(4).ToList()

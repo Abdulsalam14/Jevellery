@@ -1,6 +1,7 @@
 ﻿using Jevellery.Models;
 using Jevellery.Services.Abstract;
 using Jevellery.ViewModels.Shop;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -17,18 +18,51 @@ namespace Jevellery.Controllers
             _categoryService = categoryService;
         }
 
-        public async Task<IActionResult> Index(string sort = "default", int page = 1, int categoryId =0 , int min = 0, int max = 0)
+        public async Task<IActionResult> Index(string sort = "default", int page = 1, int categoryId = 0, int filterMin = 0, int filterMax = 0)
         {
             List<Product> products;
-            if (categoryId>0 )
+            if (categoryId > 0)
             {
                 products = await _productService.GetProductsByCategory(categoryId);
             }
             else
             {
                 products = await _productService.GetAllAsync();
-
             }
+
+
+            var minPrice = products.Min(p =>
+            {
+                if (p.Discount > 0)
+                    return p.Price - (p.Price * ((decimal)p.Discount / 100));
+                else
+                    return p.Price;
+            });
+
+            var maxPrice = products.Max(p =>
+            {
+                if (p.Discount > 0)
+                    return p.Price - (p.Price * ((decimal)p.Discount / 100));
+                else
+                    return p.Price;
+            });
+            if (filterMin > 0)
+            {
+                products = products.Where(p =>
+                {
+                    if (p.Discount > 0)
+                        return (p.Price - (p.Price * ((decimal)p.Discount / 100))) > filterMin;
+                    else
+                        return p.Price > filterMin;
+                }).ToList();
+            }
+            if (filterMax > 0) products = products.Where(p =>
+            {
+                if (p.Discount > 0)
+                    return (p.Price - (p.Price * ((decimal)p.Discount / 100))) < filterMax;
+                else
+                    return p.Price < filterMax;
+            }).ToList();
             if (sort == "latest")
             {
                 products = products.OrderByDescending(p => p.Id).ToList();
@@ -40,7 +74,7 @@ namespace Jevellery.Controllers
             }
             else if (sort == "low")
             {
-                products=products.OrderBy(p => p.Price).ToList();
+                products = products.OrderBy(p => p.Price).ToList();
             }
             int pageSize = 4;
             var PageCount = ((int)Math.Ceiling(products.Count / (double)pageSize));
@@ -85,9 +119,11 @@ namespace Jevellery.Controllers
                 Sort = sort,
                 CategoryId = categoryId,
                 Categories = await _categoryService.GetAllAsync(),
-                FilterMax=max,
-                FilterMin=min
-                
+                FilterMax = filterMax,
+                FilterMin = filterMin,
+                MaxProductPrice = (int)maxPrice,
+                MinProductPrice = (int)minPrice
+
             };
             return View(model);
         }

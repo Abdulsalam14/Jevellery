@@ -65,7 +65,7 @@ function plusProductQuantity() {
 
 function minusProductQuantity() {
     let quantity = parseInt($('#productQuantityInput').val());
-    if( quantity > 1){
+    if (quantity > 1) {
 
         quantity -= 1
         $('#productQuantityInput').val(quantity);
@@ -79,7 +79,7 @@ function addToCartPR(productId) {
     $.ajax({
         url: `/Cart/Add?productId=${productId}&quantity=${quantity}`,
         type: 'GET',
-        success: function (data) {
+        success: function () {
             getCartProducts();
         },
 
@@ -130,7 +130,7 @@ function plusCartItem(id) {
     $.ajax({
         url: `/Cart/PlusCartItem?id=${id}`,
         type: 'GET',
-        success: function (data) {
+        success: function () {
             getCartProducts();
         },
 
@@ -183,7 +183,7 @@ function minusCartItem(id) {
         $.ajax({
             url: `/Cart/MinusCartItem?id=${id}`,
             type: 'GET',
-            success: function (data) {
+            success: function () {
                 getCartProducts();
             },
 
@@ -205,34 +205,32 @@ const priceInputs = document.querySelectorAll(".price-input .price-value");
 const rangeInputs = document.querySelectorAll(".range-input input");
 const range = document.querySelector(".slider .progress");
 
-let priceGap = 0;
 
-let resetButton = $('<button onclick="resetFilter()" id="filter-reset-btn" class="explore-btn"><span>reset</span></button>');
+
+
+function calculateFilter() {
+
+    let minVal = parseInt(rangeInputs[0].value);
+    let maxVal = parseInt(rangeInputs[1].value);
+    if (minVal != parseInt(rangeInputs[0].min) || maxVal != parseInt(rangeInputs[1].max)) {
+        $("#filter-reset-btn").css('opacity', '1');
+    }
+    else {
+        $("#filter-reset-btn").css('opacity', '0');
+    }
+    let minRange = parseInt(rangeInputs[0].min);
+    let maxRange = parseInt(rangeInputs[1].max);
+    let rangeWidth = maxRange - minRange;
+
+    priceInputs[0].innerHTML = minVal;
+    priceInputs[1].innerHTML = maxVal;
+    range.style.left = ((minVal - minRange) / rangeWidth) * 100 + "%";
+    range.style.right = ((maxRange - maxVal) / rangeWidth) * 100 + "%";
+}
 
 rangeInputs.forEach((input) => {
     input.addEventListener("input", (e) => {
-        let minVal = parseInt(rangeInputs[0].value);
-        let maxVal = parseInt(rangeInputs[1].value);
-        if (minVal != parseInt(rangeInputs[0].min) || maxVal != parseInt(rangeInputs[1].max)) {
-            if ($("#filter-reset-btn").length == 0) {
-                $(".filter-price-buttons").prepend(resetButton);
-
-                $(".filter-price-buttons").css('justify-content', 'space-between');
-            }
-        }
-        else {
-            $(".filter-price-buttons").css('justify-content', 'right');
-            $("#filter-reset-btn").remove();
-
-        }
-        let minRange = parseInt(rangeInputs[0].min);
-        let maxRange = parseInt(rangeInputs[1].max);
-        let rangeWidth = maxRange - minRange;
-
-        priceInputs[0].innerHTML = minVal;
-        priceInputs[1].innerHTML = maxVal;
-        range.style.left = ((minVal - minRange) / rangeWidth) * 100 + "%";
-        range.style.right = ((maxRange - maxVal) / rangeWidth) * 100 + "%";
+        calculateFilter();
     });
 });
 
@@ -243,16 +241,40 @@ function resetFilter() {
     rangeInputs[1].value = max;
     priceInputs[0].innerHTML = min;
     priceInputs[1].innerHTML = max;
-    $("#filter-reset-btn").remove();
-    $(".filter-price-buttons").css('justify-content', 'right');
     range.style.left = 0 + "%";
     range.style.right = 0 + "%";
+    $("#filter-reset-btn").css('opacity', '0');
+    let a = $('.active-filters');
+    var b = a.length > 0 ? false : true
+    submitFilter(b)
 
 }
 
 
-function applyFilter(min, max) {
 
+
+
+function submitFilter(b) {
+    var form = document.getElementById('filterForm');
+    var filterMax = form.querySelector('input[name="filterMax"]');
+    var filterMin = form.querySelector('input[name="filterMin"]');
+
+    if (b && parseInt(filterMax.value) == parseInt(filterMax.max) && parseInt(filterMin.value) == parseInt(filterMin.min)) return;
+    if (parseInt(filterMax.value) == parseInt(filterMax.max)) {
+        var parent = filterMax.parentNode;
+        if (parent) {
+            parent.removeChild(filterMax);
+        }
+    }
+    if (parseInt(filterMin.value) == parseInt(filterMin.min)) {
+        var parent = filterMin.parentNode;
+        if (parent) {
+            parent.removeChild(filterMin);
+        }
+    }
+
+
+    form.submit();
 }
 
 
@@ -315,9 +337,9 @@ document.querySelectorAll('.prod-desc-com > li:not(.activee)').forEach(item => {
 
 document.addEventListener('DOMContentLoaded', function () {
     const tabs = document.querySelectorAll('.prod-desc-com > li');
-
     tabs.forEach(tab => {
         tab.addEventListener('click', function () {
+            console.log("worked")
             tabs.forEach(t => {
                 t.classList.remove('activee');
             });
@@ -327,7 +349,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (this.textContent === 'Description') {
                 $('.product-tab2').hide();
                 $('.product-tab1').show();
-            } else if (this.textContent === 'Rewiev') {
+            } else {
                 $('.product-tab1').hide();
                 $('.product-tab2').show();
             }

@@ -11,6 +11,7 @@ namespace Jevellery.Services.Abstract
         Task UpdateAsync(Product entity);
         Task DeleteAsync(Product entity);
         Task<List<Product>> GetProductsByCategory(int id);
+        Task<List<Product>> GetNewArrivalsProdust();
 
     }
 }

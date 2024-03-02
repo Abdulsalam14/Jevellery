@@ -1,4 +1,5 @@
 using Jevellery.DAL;
+using Jevellery.Helpers;
 using Jevellery.Models;
 using Jevellery.Repositories.Abstract;
 using Jevellery.Repositories.Concrete;
@@ -58,5 +59,15 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+var scopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
+using (var scope = scopeFactory.CreateScope())
+{
+    var userManager = scope.ServiceProvider.GetService<UserManager<AppUser>>();
+    var roleManager = scope.ServiceProvider.GetService<RoleManager<AppRole>>();
+    await DbInitializer.SeedAsync(userManager, roleManager);
+
+}
 
 app.Run();

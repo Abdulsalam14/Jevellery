@@ -192,7 +192,7 @@ nav > ul {
     left: 15px;
     border-radius: 50%;
     background-color: #db9662;
-    color: black;
+    color: white;
     font-size: 12px;
 }
 
@@ -1395,7 +1395,7 @@ label span {
 
 
 .filter-sect {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 17.1%;
@@ -1510,14 +1510,16 @@ label span {
 
 .filter-price-buttons {
     display: flex;
-    justify-content: right;
+    justify-content: space-between;
 }
 
     .filter-price-buttons .explore-btn {
         background-color: transparent;
         margin-top: 15px;
         padding: 5px 12px;
+        transition:0s;
     }
+
 
 
 
@@ -1549,6 +1551,31 @@ label span {
         transition: transform 0.3s;
     }
 
+
+.active-filters {
+    margin-bottom: 15px;
+}
+
+.active-filters .title{
+    font-size:2.7em;
+    margin-bottom:1em;
+}
+
+.remove-filter {
+    color: rgba(0,0,0,0.45);
+    background-color: #faf7f5;
+    margin:0 10px;
+    cursor:pointer;
+    border-radius:10px;
+}
+
+.remove-filter>i{
+    margin-right:5px;
+}
+
+    .remove-filter:hover {
+        color: rgba(0,0,0,0.45);
+    }
 .filter-categories-container {
     list-style: none;
     padding: 15px;
@@ -1593,9 +1620,11 @@ label span {
     padding: 5.34em 6.67em;
 }
 
-    .shop-first > p {
-        color: rgba(0,0,0,45)
-    }
+.shop-container > p {
+    color: rgb(141 123 123);
+    font-size:15px;
+    margin-bottom:1.75em;
+}
 
 
 
@@ -1635,6 +1664,8 @@ label span {
     margin: 0;
     margin-left: 5px;
 }
+
+
 
 #myDropdown {
     border: none;
@@ -1912,3 +1943,4 @@ label span {
 .related-products .category-card{
     width:24%;
 }
+

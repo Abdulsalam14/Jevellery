@@ -23,17 +23,16 @@ namespace Jevellery.Repositories.Concrete
 
         public async Task Delete(Product entity)
         {
-             _appDbContext.Remove(entity);
+            _appDbContext.Remove(entity);
             await _appDbContext.SaveChangesAsync();
         }
 
         public async Task<Product> Get(Expression<Func<Product, bool>> expression)
         {
-            var pr= await  _appDbContext.Products.Include(p=>p.Category).FirstOrDefaultAsync(expression);
+            var pr = await _appDbContext.Products.Include(p => p.Category).FirstOrDefaultAsync(expression);
             return pr;
         }
-        public async Task<List<Product>> GetList(Expression<Func<Product, bool>> filter = null, Func<IQueryable<Product>,
-     IQueryable<Product>> select = null)
+        public async Task<List<Product>> GetList(Expression<Func<Product, bool>> filter = null, Func<IQueryable<Product>,IQueryable<Product>> select = null)
         {
             IQueryable<Product> query = _appDbContext.Set<Product>();
 
@@ -59,7 +58,7 @@ namespace Jevellery.Repositories.Concrete
 
         async Task<List<Product>> IRepository<Product>.GetAll()
         {
-            return await _appDbContext.Products.Include(p=>p.Category).ToListAsync();
+            return await _appDbContext.Products.Include(p => p.Category).ToListAsync();
         }
     }
 }

@@ -25,8 +25,13 @@
                         </div>
                     </div>
                     <div class="cart-main-right">
+                        @{
+                            var discountPrice = item.Product.Price * ((decimal)item.Product.Discount / 100);
+                            var price = item.Product.Price - discountPrice;
+                            var p=Math.Round(price, 2);
+                        }
                         <span class="cart-x"><i onclick="removeItem(@item.Id)" class="fa-solid fa-xmark"></i></span>
-                        <span class="card-price">$@item.Product.Price</span>
+                        <span class="card-price">@p</span>
                     </div>
                 </div>
             </li>

@@ -14,5 +14,7 @@ namespace Jevellery.ViewModels.Shop
         public int FilterMax { get; set; }
         public int FilterMin { get; set; }
         public int CategoryId { get; set; }
+        public int MaxProductPrice {  get; set; }
+        public int MinProductPrice { get; set; }
     }
 }

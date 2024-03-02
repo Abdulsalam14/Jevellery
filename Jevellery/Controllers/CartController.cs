@@ -59,15 +59,15 @@ namespace Jevellery.Controllers
             }
             else
             {
-                cartProduct.Quantity+=quantity;
+                cartProduct.Quantity += quantity;
                 await _cartProductService.UpdateAsync(cartProduct);
             }
             return Ok();
         }
 
-        public async Task<IActionResult>Remove(int id)
+        public async Task<IActionResult> Remove(int id)
         {
-            var cartProduct=await _cartProductService.Get(cp=>cp.Id == id);
+            var cartProduct = await _cartProductService.Get(cp => cp.Id == id);
             if (cartProduct == null) return NotFound();
             await _cartProductService.DeleteAsync(cartProduct);
             return Ok();
@@ -82,11 +82,11 @@ namespace Jevellery.Controllers
             return Ok();
         }
 
-        public async Task<IActionResult> UpdateCartItem(int id,int quantity)
+        public async Task<IActionResult> UpdateCartItem(int id, int quantity)
         {
             var cartProduct = await _cartProductService.Get(cp => cp.Id == id);
             if (cartProduct == null) return NotFound();
-            cartProduct.Quantity=quantity;
+            cartProduct.Quantity = quantity;
             await _cartProductService.UpdateAsync(cartProduct);
             return Ok();
         }
@@ -95,11 +95,11 @@ namespace Jevellery.Controllers
         {
             var cartProduct = await _cartProductService.Get(cp => cp.Id == id);
             if (cartProduct == null) return NotFound();
-            if(cartProduct.Quantity>0)
+            if (cartProduct.Quantity > 0)
                 cartProduct.Quantity--;
             else
             {
-                RedirectToAction("Remove",new { id = id });
+                RedirectToAction("Remove", new { id = id });
             }
             await _cartProductService.UpdateAsync(cartProduct);
             return Ok();
@@ -112,11 +112,17 @@ namespace Jevellery.Controllers
             if (user == null) return Unauthorized();
             var cart = await _cartService.Get(c => c.UserId == user.Id);
 
-            var cartProducts= await _cartProductService.GetCartProductsByCartId(cart.Id);
+            var cartProducts = await _cartProductService.GetCartProductsByCartId(cart.Id);
             var model = new CartVM
             {
                 CartProducts = cartProducts,
-                Sum = cartProducts.Sum(c => c.Product.Price*c.Quantity),
+                Sum = cartProducts.Sum(c =>
+                {
+                    decimal priceAfterDiscount = c.Product.Discount > 0 ?
+                            c.Product.Price - (c.Product.Price * ((decimal)c.Product.Discount / 100)) :
+                            c.Product.Price;
+                    return Math.Round(priceAfterDiscount*c.Quantity, 2);
+                }),
                 Count = cartProducts.Count()
             };
 

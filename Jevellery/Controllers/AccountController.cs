@@ -1,4 +1,6 @@
-﻿using Jevellery.Models;
+﻿using Jevellery.Attributes;
+using Jevellery.Constants;
+using Jevellery.Models;
 using Jevellery.ViewModels.Account;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +21,7 @@ namespace Jevellery.Controllers
             _signInManager = signInManager;
         }
 
+        [OnlyAnonymous]
         public IActionResult Login()
         {
             return View();
@@ -37,6 +40,9 @@ namespace Jevellery.Controllers
                     var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
                     if (result.Succeeded)
                     {
+                        if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+                            return Redirect(model.ReturnUrl);
+
                         return RedirectToAction("Index", "Home");
                     }
                     else
@@ -49,7 +55,7 @@ namespace Jevellery.Controllers
             }
             return View(model);
         }
-
+        [OnlyAnonymous]
         public IActionResult Register()
         {
             return View();
@@ -69,11 +75,11 @@ namespace Jevellery.Controllers
                 IdentityResult result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    if (!await _roleManager.RoleExistsAsync("User"))
+                    if (!await _roleManager.RoleExistsAsync(Roles.User.ToString()))
                     {
                         AppRole role = new AppRole
                         {
-                            Name = "User"
+                            Name = Roles.User.ToString(),
                         };
 
                         IdentityResult roleResult = await _roleManager.CreateAsync(role);
@@ -84,7 +90,7 @@ namespace Jevellery.Controllers
                         }
                     }
 
-                    _userManager.AddToRoleAsync(user, "User").Wait();
+                    _userManager.AddToRoleAsync(user,Roles.User.ToString()).Wait();
                     return RedirectToAction("Login", "Account");
 
                 }
