@@ -1782,7 +1782,7 @@ label span {
     cursor: pointer;
 }
 
-.image-overlay {
+.image-overlay,.quick-view {
     display: none;
     position: absolute;
     top: 0;
@@ -1793,6 +1793,58 @@ label span {
     z-index: 100;
 }
 
+
+.quick-view {
+    background-color: rgba(0,0,0,0.4);
+}
+
+.quick-view-container {
+    position:relative;
+    width:52%;
+    margin:auto;
+    background-color:white;
+    margin-top:200px;
+}
+
+.quick-view-x {
+    position: absolute;
+    top: -20px;
+    right: -15px;
+    color: white;
+    font-size: 22px;
+    overflow: hidden;
+}
+
+    .quick-view-x>i{
+        cursor:pointer;
+    }
+
+    .quick-view .product-top {
+        justify-content: center;
+        align-items: center;
+    }
+
+.quick-view .product-img{
+    width:50%;
+}
+
+.quick-view .product-info{
+    width:50%;
+    padding:0 30px;
+
+
+}
+
+.quick-view .product-info>p{
+    margin-top:15px;
+}
+
+.quick-view .product-info-bottom{
+}
+
+.quick-view .product-add{
+    margin-top:30px;
+}
 
 .overlay-img {
     padding: 30px 40px 50px 40px;

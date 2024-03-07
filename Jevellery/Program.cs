@@ -1,10 +1,11 @@
-using Jevellery.DAL;
+
 using Jevellery.Helpers;
-using Jevellery.Models;
-using Jevellery.Repositories.Abstract;
-using Jevellery.Repositories.Concrete;
-using Jevellery.Services.Abstract;
-using Jevellery.Services.Concrete;
+using Jewellery.Business.Abstract;
+using Jewellery.Business.Concrete;
+using Jewellery.DataAccess.Abstract;
+using Jewellery.DataAccess.Concrete.EFEntityFramework;
+using Jewellery.Entities;
+using Jewellery.Entities.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,14 +18,15 @@ builder.Services.AddControllersWithViews()
     {
         opt.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
     });
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductDal, EFProductDal>();
 builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<ICartDal, EFCartDal>();
 builder.Services.AddScoped<ICartService, CartService>();
-builder.Services.AddScoped<ICartProductRepository, CartProductRepository>();
+builder.Services.AddScoped<ICartProductDal, EFCartProductDal>();
 builder.Services.AddScoped<ICartProductService, CartProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryDal, EFCategoryDal>();
+
 
 
 
@@ -57,9 +59,19 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
+  name: "areas",
+  pattern: "{area:exists}/{controller=category}/{action=Index}/{id?}"
+);
+
+
+app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+
+
+
+//app.MapDefaultControllerRoute();
 
 var scopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
 using (var scope = scopeFactory.CreateScope())

@@ -1,5 +1,8 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using Jevellery.ViewModels.Home
+@model HomeVM
+
+@{
+    ViewData["Title"] = "Home";
 }
 
 <div class="home">
@@ -23,38 +26,22 @@
         <a class="explore-btn">
             <span>- View All</span>
         </a>
-        <div class="categories-container">
-            <div class="category-card">
-                <a>
-                    <img src="~/img/category1.jpg" />
-                </a>
-                <div class="category-text">
-                    <p>Earrings</p>
-                    <span>5</span>
-                    <span>Products</span>
-                </div>
-            </div>
 
-            <div class="category-card">
-                <a>
-                    <img src="~/img/category2.jpg" />
-                </a>
-                <div class="category-text">
-                    <p>Necklages</p>
-                    <span>2</span>
-                    <span>Products</span>
+        <div class="categories-container">
+            @foreach (var item in Model.Categories)
+            {
+                <div class="category-card">
+                    <a asp-controller="shop" asp-action="index" asp-route-categoryId="@item.Id">
+                        <img src="~/img/@(item.Filename).jpg" />
+                    </a>
+                    <div class="category-text">
+                        <p>@item.Name</p>
+                        <span>@item.Products.Count</span>
+                        <span>Products</span>
+                    </div>
                 </div>
-            </div>
-            <div class="category-card">
-                <a>
-                    <img src="~/img/category3.jpg" />
-                </a>
-                <div class="category-text">
-                    <p>Rings</p>
-                    <span>3</span>
-                    <span>Products</span>
-                </div>
-            </div>
+
+            }
         </div>
     </section>
     <section class="home-third">
@@ -77,85 +64,37 @@
             <span>- View All</span>
         </a>
         <div class="categories-container">
-            <div class="category-card">
-                <a>
-                    <img src="~/img/new1.jpg" />
-                </a>
-                <div class="card-icons">
-                    <div class="card-icon-container">
-                        <button type="button" class="basket">
-                            <span class="tooltiptext">Add to cart</span>
-                            <i class="bi bi-basket-fill"></i>
-                        </button>
-                    </div>
-                    <div class="card-icon-container">
-                        <button type="button" class="view">
-                            <span class="tooltiptext">Quick View</span>
-                            <i class="bi bi-eye-fill"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="card-text">
-                    <span class="card-categoryname">Earrings</span>
-                    <a class="">
-                        <h2 class="card-productname">Minole Golden Earrings</h2>
+            @foreach (var item in Model.NewArrivalProducts)
+            {
+                <div class="category-card">
+                    <a>
+                        <img src="~/img/Products/@(item.Filename).jpg" />
                     </a>
-                    <span class="card-price">$344</span>
+                    <div class="card-icons">
+                        <div class="card-icon-container">
+                            <button type="button" class="basket">
+                                <span class="tooltiptext">Add to cart</span>
+                                <i class="bi bi-basket-fill"></i>
+                            </button>
+                        </div>
+                        <div class="card-icon-container">
+                            <button type="button" class="view">
+                                <span class="tooltiptext">Quick View</span>
+                                <i class="bi bi-eye-fill"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-text">
+                        <span class="card-categoryname">@item.Category.Name</span>
+                        <a class="">
+                            <h2 class="card-productname">@item.Name</h2>
+                        </a>
+                        <span class="card-price">$@item.Price</span>
+                    </div>
                 </div>
-            </div>
 
-            <div class="category-card">
-                <a>
-                    <img src="~/img/new2.jpg" />
-                </a>
-                <div class="card-icons">
-                    <div class="card-icon-container">
-                        <button type="button" class="basket">
-                            <span class="tooltiptext">Add to cart</span>
-                            <i class="bi bi-basket-fill"></i>
-                        </button>
-                    </div>
-                    <div class="card-icon-container">
-                        <button type="button" class="view">
-                            <span class="tooltiptext">Quick View</span>
-                            <i class="bi bi-eye-fill"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="card-text">
-                    <span class="card-categoryname">Earrings</span>
-                    <a class="">
-                        <h2 class="card-productname">Minole Golden Earrings</h2>
-                    </a>
-                    <span class="card-price">$344</span>
-                </div>
-            </div>
-            <div class="category-card">
-                <a>
-                    <img src="~/img/new3.jpg" />
-                </a>
-                <div class="card-icons">
-                    <div class="card-icon-container">
-                        <button type="button" class="basket">
-                            <span class="tooltiptext">Add to cart</span>
-                            <i class="bi bi-basket-fill"></i>
-                        </button>
-                    </div>
-                    <div class="card-icon-container">
-                        <button type="button" class="view">
-                            <span class="tooltiptext">Quick View</span>
-                            <i class="bi bi-eye-fill"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="card-text">
-                    <span class="card-categoryname">Earrings</span>
-                    <a class="">
-                        <h2 class="card-productname">Minole Golden Earrings</h2>
-                    </a>
-                    <span class="card-price">$344</span>
-                </div>
-            </div>
+            }
+
         </div>
     </section>
     <section class="home-fifth">

@@ -1,5 +1,6 @@
-﻿using Jevellery.Models;
-using Jevellery.Services.Abstract;
+﻿
+using Jevellery.ViewModels.Home;
+using Jewellery.Business.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -17,9 +18,14 @@ namespace Jevellery.Controllers
         }
 
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var model = new HomeVM
+            {
+                Categories = await _categoryService.GetAllAsync(),
+                NewArrivalProducts = await _productService.GetNewArrivalProducts(),
+            };
+            return View(model);
         }
 
     }

@@ -1,6 +1,7 @@
-﻿using Jevellery.Models;
-using Jevellery.Services.Abstract;
+﻿
 using Jevellery.ViewModels.Productt;
+using Jevellery.WebUI.ViewModels.QuickView;
+using Jewellery.Business.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Jevellery.Controllers
@@ -16,7 +17,7 @@ namespace Jevellery.Controllers
 
         public async Task<IActionResult> Index(int productId)
         {
-            var product = await _productService.Get(p => p.Id == productId);
+            var product = await _productService.GetAsync(p => p.Id == productId);
             var relatedProducts = await _productService.GetProductsByCategory(product.Category.Id);
             var model = new ProductIndexVM
             {
@@ -27,5 +28,24 @@ namespace Jevellery.Controllers
 
             return View(model);
         }
+
+        public async Task<IActionResult> GetProduct(int productId)
+        {
+            var product = await _productService.GetAsync(p => p.Id == productId);
+            var model = new ProductVM
+            {
+                Name=product.Name,
+                CategoryName=product.Category.Name,
+                CategoryId=product.Category.Id,
+                Price=product.Price,
+                ProductId=productId,
+                Description=product.Description,
+                FileName=product.Filename
+            };
+
+            return PartialView("_QuickViewPartialView", model);
+        }
+
+
     }
 }

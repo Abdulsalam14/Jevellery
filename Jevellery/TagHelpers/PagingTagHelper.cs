@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using System.Text;
 
-namespace Jevellery.TagHelpers
+namespace Jevellery.WebUI.TagHelpers
 {
     [HtmlTargetElement("product-list-pager")]
     public class PagingTagHelper : TagHelper

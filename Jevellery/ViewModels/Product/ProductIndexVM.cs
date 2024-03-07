@@ -1,5 +1,4 @@
-﻿
-using Jevellery.Models;
+﻿using Jewellery.Entities.Models;
 
 namespace Jevellery.ViewModels.Productt
 {

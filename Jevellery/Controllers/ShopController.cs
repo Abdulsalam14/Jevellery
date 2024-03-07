@@ -1,6 +1,7 @@
-﻿using Jevellery.Models;
-using Jevellery.Services.Abstract;
+﻿
 using Jevellery.ViewModels.Shop;
+using Jewellery.Business.Abstract;
+using Jewellery.Entities.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;

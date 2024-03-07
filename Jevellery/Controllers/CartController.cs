@@ -1,6 +1,7 @@
-﻿using Jevellery.Models;
-using Jevellery.Services.Abstract;
+﻿
 using Jevellery.ViewModels.Cart;
+using Jewellery.Business.Abstract;
+using Jewellery.Entities.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -30,14 +31,14 @@ namespace Jevellery.Controllers
 
         public async Task<IActionResult> Add(int productId, int quantity = 1)
         {
-            var product = await _productService.Get(p => p.Id == productId);
+            var product = await _productService.GetAsync(p => p.Id == productId);
             if (product == null)
             {
                 return NotFound();
             }
             var user = await _userManager.GetUserAsync(HttpContext.User);
             if (user == null) return Unauthorized();
-            Cart cart = await _cartService.Get(c => c.UserId == user.Id);
+            Cart cart = await _cartService.GetAsync(c => c.UserId == user.Id);
             if (cart == null)
             {
                 cart = new Cart()
@@ -104,13 +105,13 @@ namespace Jevellery.Controllers
             await _cartProductService.UpdateAsync(cartProduct);
             return Ok();
         }
-
+                     
 
         public async Task<IActionResult> GetCartProducts()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             if (user == null) return Unauthorized();
-            var cart = await _cartService.Get(c => c.UserId == user.Id);
+            var cart = await _cartService.GetAsync(c => c.UserId == user.Id);
 
             var cartProducts = await _cartProductService.GetCartProductsByCartId(cart.Id);
             var model = new CartVM

@@ -101,7 +101,7 @@
                                 </button>
                             </div>
                             <div class="card-icon-container">
-                                <button type="button" class="view">
+                                <button onclick="showQuickView(@item.Id)" type="button" class="view">
                                     <span class="tooltiptext">Quick View</span>
                                     <i class="bi bi-eye-fill"></i>
                                 </button>
@@ -127,7 +127,7 @@
                     </div>
                 }
             </div>
-            <product-list-pager current-page=@Model.CurrentPage sort="@Model.Sort" categoryId="@Model.CategoryId" page-count=@Model.PageCount filterMax="@Model.FilterMax" filterMin="@Model.FilterMin" ></product-list-pager>
+            <product-list-pager  current-page=@Model.CurrentPage sort="@Model.Sort" categoryId="@Model.CategoryId" page-count=@Model.PageCount filterMax="@Model.FilterMax" filterMin="@Model.FilterMin" ></product-list-pager>
             <div class="filter-sect">
                 <div class="filter-sec-top">
                     <button onclick="closeFilterSect()" type="button"><i class="fa-solid fa-xmark"></i></button>

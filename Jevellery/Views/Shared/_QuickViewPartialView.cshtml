@@ -1,0 +1,34 @@
+﻿@using Jevellery.WebUI.ViewModels.QuickView
+@model ProductVM
+
+
+<div class="product-top">
+    <div class="product-img">
+        <img src="~/img/Products/@(Model.FileName).jpg" />
+    </div>
+    <div class="product-info">
+        <a asp-action="index" asp-controller="shop" asp-route-categoryId="@Model.CategoryId">@Model.CategoryName</a>
+        <h2 class="title">@Model.Name</h2>
+        <div>
+            <span class="card-price">$@Model.Price</span>
+            <span>+ Free Shipping</span>
+        </div>
+        <p>@Model.Description</p>
+        <div class="product-info-bottom">
+            <span>Category:</span>
+            <a asp-action="index" asp-controller="shop" asp-route-categoryId="@Model.CategoryId">@Model.CategoryName</a>
+        </div>
+        <div class="product-add">
+            <div class="cart-quantity">
+                <span onclick="minusProductQuantity()">-</span>
+                @* <span id="cart-quantity-text">@item.Quantity</span> *@
+                <input id="productQuantityInput" type="number" inputmode="numeric" maxlength="2" step="1" value="1" />
+                <span onclick="plusProductQuantity()">+</span>
+            </div>
+            <button onclick="addToCartPR(@Model.ProductId)" class="explore-btn">
+                <span>Add To cart</span>
+            </button>
+        </div>
+
+    </div>
+</div>

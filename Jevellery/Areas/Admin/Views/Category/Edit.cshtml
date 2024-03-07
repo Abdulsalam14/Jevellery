@@ -1,0 +1,25 @@
+﻿@model Category
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">Add Category</div>
+        <hr>
+        <form method="post" asp-action="edit" asp-controller="category" enctype="multipart/form-data" asp-area="admin">
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" placeholder="Enter Name">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Filename" class="form-label"></label>
+                <input type="hidden" asp-for="Filename" />
+                <input type="file" accept="image/*" name="categoryImage" />
+                <span asp-validation-for="Filename" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-light px-5">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

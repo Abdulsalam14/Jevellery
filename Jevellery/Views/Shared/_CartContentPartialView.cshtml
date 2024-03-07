@@ -9,7 +9,6 @@
             var item = Model.CartProducts[i];
             <li class="cart-item @(i == 0 ? "first" : "")">
                 <div class="cart-img">
-                    @* <img src=$"~/img/featured-product2.jpg" /> *@
                     <img src="~/img/Products/@(item.Product.Filename).jpg" />
                 </div>
                 <div class="cart-main">
@@ -19,7 +18,6 @@
                         </a>
                         <div class="cart-quantity">
                             <span onclick="minusCartItem(@item.Id)">-</span>
-                            @* <span id="cart-quantity-text">@item.Quantity</span> *@
                             <input id="quantityInput" type="number" inputmode="numeric" maxlength="2" step="1" asp-for="@item.Quantity" oninput="inputFunc(event,@item.Id)" />
                             <span onclick="plusCartItem(@item.Id)">+</span>
                         </div>

@@ -1,4 +1,4 @@
-﻿using Jevellery.Models;
+﻿using Jewellery.Entities.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Jevellery.ViewModels.Shop

@@ -1,7 +1,7 @@
 ﻿using Jevellery.Attributes;
 using Jevellery.Constants;
-using Jevellery.Models;
 using Jevellery.ViewModels.Account;
+using Jewellery.Entities.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

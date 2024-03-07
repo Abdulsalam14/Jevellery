@@ -379,6 +379,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+function showQuickView(productId) {
+    $(".quick-view").show();
+    document.body.style.overflow = 'hidden';
+
+    $.ajax({
+        url: `/Product/GetProduct?productId=${productId}`,
+        type: 'GET',
+        success: function (data) {
+            $("#quick-content").append(data);
+        },
+
+        error: function (xhr) {
+            alert('Error while getting Product. Please try again later.');
+        }
+    });
+}
+
+
+function closeQuickView() {
+    $(".quick-view").hide();
+    $("#quick-content").find('.product-top').remove();
+
+    document.body.style.overflow = 'initial';
+
+}
+
 
 
 getCartProducts();

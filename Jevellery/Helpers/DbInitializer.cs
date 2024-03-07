@@ -1,5 +1,5 @@
 ﻿using Jevellery.Constants;
-using Jevellery.Models;
+using Jewellery.Entities.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace Jevellery.Helpers
