@@ -17,6 +17,9 @@ namespace Jewellery.Business.Abstract
         Task DeleteAsync(Product entity);
         Task<List<Product>> GetProductsByCategory(int id);
         Task<List<Product>> GetNewArrivalProducts();
+        Task<List<Product>> GetNotNewArrivalProducts();
+        Task<List<Product>> GetNotFeaturedProducts();
+        Task<List<Product>> GetFeaturedProducts();
 
     }
 }

@@ -85,7 +85,7 @@
                 {
                     <div class="category-card">
                         <a asp-action="index" asp-controller="product" asp-route-productId="@item.Id">
-                            <img src="~/img/Products/@(item.Filename).jpg" />
+                            <img src="@item.Filename" />
                         </a>
                         @if (item.Discount > 0)
                         {
@@ -186,7 +186,7 @@
                         {
                             <li class="filter-category-card">
                                 <a asp-action="index" asp-controller="shop" asp-route-categoryId="@item.Id" class="filter-category-card-img">
-                                    <img src="~/img/@(item.Filename).jpg" />
+                                    <img src="@item.Filename" />
                                 </a>
                                 <a sp-action="index" asp-controller="shop" asp-route-categoryId="@item.Id">@item.Name</a>
                                 <span>(@item.Products.Count)</span>

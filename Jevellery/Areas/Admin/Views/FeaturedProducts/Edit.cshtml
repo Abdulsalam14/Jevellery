@@ -1,0 +1,50 @@
+﻿@using Jevellery.WebUI.Areas.Admin.Models
+@model NewArrivalsUpdateVM
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">ProductId</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">CategoryName</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <form id="selectForm2" method="post" asp-action="edit" asp-controller="featuredproducts" asp-area="admin">
+                        <input type="hidden" name="selectedId" value="" id="selectedIdInput" />
+                        <input type="hidden" name="current.Id" value="@Model.Current.Id" />
+                    </form>
+
+                    @foreach (var product in Model.OtherProducts)
+                    {
+                        <tr>
+                            <th>@product.Id</th>
+                            <td>@product.Name</td>
+                            <td class="admin-first-img">
+                                <img src="@product.Filename" />
+                            </td>
+                            <td>@product.Category.Name</td>
+                            <td>
+                                <a class="btn btn-outline-success text-white" onclick="selectProduct(@product.Id)">Select</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function selectProduct(productId) {
+        document.getElementById("selectedIdInput").value = productId;
+        document.getElementById("selectForm2").submit();
+    }
+</script>

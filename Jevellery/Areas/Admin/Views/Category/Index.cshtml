@@ -26,7 +26,7 @@
                             <th>@category.Id</th>
                             <td>@category.Name</td>
                             <td class="admin-first-img">
-                                <img src="/img/@(category.Filename).jpg" />
+                                <img src="@category.Filename" />
                             </td>
                             <td>
                                 <a class="btn btn-outline-warning text-white" asp-action="edit" asp-controller="category" asp-area="admin" asp-route-id="@category.Id">Edit</a>

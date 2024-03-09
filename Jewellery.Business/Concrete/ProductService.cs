@@ -54,5 +54,23 @@ namespace Jewellery.Business.Concrete
         {
             await _productDal.UpdateAsync(entity);
         }
+
+        public async Task<List<Product>> GetNotNewArrivalProducts()
+        {
+            return await _productDal.GetListAsync(p => p.IsNewArrival == false, p => p.Include(p => p.Category));
+        }
+
+        public async Task<List<Product>> GetNotFeaturedProducts()
+        {
+            return await _productDal.GetListAsync(p => p.IsFeatured == false, p => p.Include(p => p.Category));
+
+
+        }
+
+        public async Task<List<Product>> GetFeaturedProducts()
+        {
+            return await _productDal.GetListAsync(p => p.IsFeatured == true, p => p.Include(p => p.Category));
+
+        }
     }
 }

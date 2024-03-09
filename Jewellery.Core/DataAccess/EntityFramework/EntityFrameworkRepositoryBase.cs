@@ -84,6 +84,7 @@ namespace Jewellery.Core.DataAccess.EntityFramework
         {
             var updatedEntity = _context.Entry(entity);
             updatedEntity.State = EntityState.Modified;
+
             await _context.SaveChangesAsync();
         }
     }

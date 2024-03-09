@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Jevellery.Migrations
+namespace Jewellery.Entities.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
@@ -22,7 +22,7 @@ namespace Jevellery.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Jevellery.Models.AppRole", b =>
+            modelBuilder.Entity("Jewellery.Entities.Models.AppRole", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -49,7 +49,7 @@ namespace Jevellery.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Jevellery.Models.AppUser", b =>
+            modelBuilder.Entity("Jewellery.Entities.Models.AppUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -119,7 +119,7 @@ namespace Jevellery.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Jevellery.Models.Cart", b =>
+            modelBuilder.Entity("Jewellery.Entities.Models.Cart", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -136,7 +136,7 @@ namespace Jevellery.Migrations
                     b.ToTable("Carts");
                 });
 
-            modelBuilder.Entity("Jevellery.Models.CartProduct", b =>
+            modelBuilder.Entity("Jewellery.Entities.Models.CartProduct", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -162,7 +162,7 @@ namespace Jevellery.Migrations
                     b.ToTable("CartProducts");
                 });
 
-            modelBuilder.Entity("Jevellery.Models.Category", b =>
+            modelBuilder.Entity("Jewellery.Entities.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -171,7 +171,6 @@ namespace Jevellery.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Filename")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -181,29 +180,9 @@ namespace Jevellery.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Filename = "category1",
-                            Name = "Earrings"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Filename = "category2",
-                            Name = "Necklages"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Filename = "category3",
-                            Name = "Rings"
-                        });
                 });
 
-            modelBuilder.Entity("Jevellery.Models.Product", b =>
+            modelBuilder.Entity("Jewellery.Entities.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -215,14 +194,12 @@ namespace Jevellery.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Discount")
                         .HasColumnType("int");
 
                     b.Property<string>("Filename")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsFeatured")
@@ -232,7 +209,6 @@ namespace Jevellery.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
@@ -243,164 +219,6 @@ namespace Jevellery.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CategoryId = 1,
-                            Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat two.",
-                            Discount = 0,
-                            Filename = "product-01",
-                            IsFeatured = false,
-                            IsNewArrival = true,
-                            Name = "Minola Golden Earrings",
-                            Price = 325.00m
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CategoryId = 2,
-                            Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat two.",
-                            Discount = 0,
-                            Filename = "product-02",
-                            IsFeatured = false,
-                            IsNewArrival = true,
-                            Name = "Minola Golden Necklace",
-                            Price = 325.00m
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CategoryId = 3,
-                            Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat two.",
-                            Discount = 26,
-                            Filename = "product-03",
-                            IsFeatured = false,
-                            IsNewArrival = false,
-                            Name = "Minola Golden Ring",
-                            Price = 325.00m
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CategoryId = 3,
-                            Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat two.",
-                            Discount = 29,
-                            Filename = "product-04",
-                            IsFeatured = false,
-                            IsNewArrival = false,
-                            Name = "Minola Golden Ring",
-                            Price = 375.00m
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CategoryId = 3,
-                            Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat two.",
-                            Discount = 13,
-                            Filename = "product-05",
-                            IsFeatured = false,
-                            IsNewArrival = false,
-                            Name = "Minola Golden Ring",
-                            Price = 450.00m
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CategoryId = 3,
-                            Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat two.",
-                            Discount = 29,
-                            Filename = "product-06",
-                            IsFeatured = false,
-                            IsNewArrival = false,
-                            Name = "Minola Golden Ring",
-                            Price = 525.00m
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CategoryId = 1,
-                            Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat two.",
-                            Discount = 0,
-                            Filename = "product-07",
-                            IsFeatured = false,
-                            IsNewArrival = true,
-                            Name = "Minola Silver Earrings",
-                            Price = 325.00m
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CategoryId = 1,
-                            Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat two.",
-                            Discount = 0,
-                            Filename = "product-08",
-                            IsFeatured = false,
-                            IsNewArrival = false,
-                            Name = "Sone Golden Earrings",
-                            Price = 325.00m
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CategoryId = 1,
-                            Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat two.",
-                            Discount = 0,
-                            Filename = "product-09",
-                            IsFeatured = true,
-                            IsNewArrival = false,
-                            Name = "Sone Golden Earrings",
-                            Price = 325.00m
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CategoryId = 1,
-                            Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat two.",
-                            Discount = 0,
-                            Filename = "product-010",
-                            IsFeatured = false,
-                            IsNewArrival = false,
-                            Name = "Venus Diamond Earrings",
-                            Price = 325.00m
-                        },
-                        new
-                        {
-                            Id = 11,
-                            CategoryId = 2,
-                            Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat two.",
-                            Discount = 0,
-                            Filename = "product-011",
-                            IsFeatured = false,
-                            IsNewArrival = false,
-                            Name = "Venus Golden Necklace",
-                            Price = 325.00m
-                        },
-                        new
-                        {
-                            Id = 12,
-                            CategoryId = 2,
-                            Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat two.",
-                            Discount = 0,
-                            Filename = "product-012",
-                            IsFeatured = false,
-                            IsNewArrival = false,
-                            Name = "Venus Silver Necklace",
-                            Price = 325.00m
-                        },
-                        new
-                        {
-                            Id = 13,
-                            CategoryId = 3,
-                            Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat two.",
-                            Discount = 0,
-                            Filename = "product-013",
-                            IsFeatured = true,
-                            IsNewArrival = false,
-                            Name = "Verra Diamond Ring",
-                            Price = 325.00m
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -509,24 +327,24 @@ namespace Jevellery.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Jevellery.Models.AppUser", b =>
+            modelBuilder.Entity("Jewellery.Entities.Models.AppUser", b =>
                 {
-                    b.HasOne("Jevellery.Models.Cart", "Cart")
+                    b.HasOne("Jewellery.Entities.Models.Cart", "Cart")
                         .WithMany()
                         .HasForeignKey("CartId");
 
                     b.Navigation("Cart");
                 });
 
-            modelBuilder.Entity("Jevellery.Models.CartProduct", b =>
+            modelBuilder.Entity("Jewellery.Entities.Models.CartProduct", b =>
                 {
-                    b.HasOne("Jevellery.Models.Cart", "Cart")
+                    b.HasOne("Jewellery.Entities.Models.Cart", "Cart")
                         .WithMany("CartProducts")
                         .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Jevellery.Models.Product", "Product")
+                    b.HasOne("Jewellery.Entities.Models.Product", "Product")
                         .WithMany("CartProducts")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -537,9 +355,9 @@ namespace Jevellery.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Jevellery.Models.Product", b =>
+            modelBuilder.Entity("Jewellery.Entities.Models.Product", b =>
                 {
-                    b.HasOne("Jevellery.Models.Category", "Category")
+                    b.HasOne("Jewellery.Entities.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -550,7 +368,7 @@ namespace Jevellery.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Jevellery.Models.AppRole", null)
+                    b.HasOne("Jewellery.Entities.Models.AppRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -559,7 +377,7 @@ namespace Jevellery.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Jevellery.Models.AppUser", null)
+                    b.HasOne("Jewellery.Entities.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -568,7 +386,7 @@ namespace Jevellery.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Jevellery.Models.AppUser", null)
+                    b.HasOne("Jewellery.Entities.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -577,13 +395,13 @@ namespace Jevellery.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Jevellery.Models.AppRole", null)
+                    b.HasOne("Jewellery.Entities.Models.AppRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Jevellery.Models.AppUser", null)
+                    b.HasOne("Jewellery.Entities.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -592,24 +410,24 @@ namespace Jevellery.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Jevellery.Models.AppUser", null)
+                    b.HasOne("Jewellery.Entities.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Jevellery.Models.Cart", b =>
+            modelBuilder.Entity("Jewellery.Entities.Models.Cart", b =>
                 {
                     b.Navigation("CartProducts");
                 });
 
-            modelBuilder.Entity("Jevellery.Models.Category", b =>
+            modelBuilder.Entity("Jewellery.Entities.Models.Category", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("Jevellery.Models.Product", b =>
+            modelBuilder.Entity("Jewellery.Entities.Models.Product", b =>
                 {
                     b.Navigation("CartProducts");
                 });

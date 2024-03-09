@@ -6,5 +6,6 @@ namespace Jevellery.ViewModels.Home
     {
         public List<Category>? Categories { get; set; }
         public List<Product> NewArrivalProducts { get; set; }
+        public List<Product> FeaturedProducts { get; set; }
     }
 }

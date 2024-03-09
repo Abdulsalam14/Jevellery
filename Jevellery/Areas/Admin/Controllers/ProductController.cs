@@ -1,6 +1,9 @@
-﻿using Jewellery.Business.Abstract;
+﻿using Jevellery.WebUI.Areas.Admin.Models;
+using Jevellery.WebUI.ViewModels.QuickView;
+using Jewellery.Business.Abstract;
 using Jewellery.Entities.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Jevellery.WebUI.Areas.Admin.Controllers
 {
@@ -8,12 +11,14 @@ namespace Jevellery.WebUI.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
-        private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly ICategoryService _categoryService;
+        private readonly IPhotoService _photoService;
 
-        public ProductController(IProductService productService, IWebHostEnvironment hostingEnvironment)
+        public ProductController(IProductService productService,  ICategoryService categoryService, IPhotoService photoService)
         {
             _productService = productService;
-            _hostingEnvironment = hostingEnvironment;
+            _categoryService = categoryService;
+            _photoService = photoService;
         }
 
         public async Task<IActionResult> Index()
@@ -25,86 +30,99 @@ namespace Jevellery.WebUI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            return View();
+            var categories = await _categoryService.GetAllAsync();
+            var viewModel = new ProductCreateVM
+            {
+                Product = new(),
+                Categories = categories
+            };
+            return View(viewModel);
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> Create(Product product, IFormFile categoryImage)
+        public async Task<IActionResult> Create(ProductCreateVM productvm, IFormFile productImage)
         {
             if (!ModelState.IsValid)
             {
-                return View(product);
+                foreach (var modelStateEntry in ModelState.Values)
+                {
+                    foreach (var error in modelStateEntry.Errors)
+                    {
+                        var errorMessage = error.ErrorMessage;
+                    }
+                }
+                productvm.Categories = await _categoryService.GetAllAsync();
+                return View(productvm);
             }
-            var isexists = await _productService.GetAsync(c => c.Name.ToLower() == product.Name.ToLower()); /*_dbContext.Categories.AnyAsync(c => c.Title.ToLower().Trim() == category.Title.ToLower().Trim());*/
+            var isexists = await _productService.GetAsync(c => c.Name.ToLower() == productvm.Product.Name.ToLower());
             if (isexists != null)
             {
-                ModelState.AddModelError("Name", "Kateqoriya movcuddur");
-                return View(product);
+                ModelState.AddModelError("Name", "Product movcuddur");
+                productvm.Categories = await _categoryService.GetAllAsync();
+                return View(productvm);
             }
-            if (categoryImage == null || categoryImage.Length == 0)
+            if (productImage == null || productImage.Length == 0)
             {
-                return View(product);
+                productvm.Categories = await _categoryService.GetAllAsync();
+                return View(productvm);
             }
-            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "img");
-            string filePath = Path.Combine(uploadsFolder, categoryImage.FileName);
-            if (!Directory.Exists(uploadsFolder))
-            {
-                Directory.CreateDirectory(uploadsFolder);
-            }
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                await categoryImage.CopyToAsync(fileStream);
-            }
-            product.Filename = categoryImage.FileName;
-            await _productService.AddAsync(product);
+
+            productvm.Product.Filename = await _photoService.UploadImageAsync(productImage);
+            await _productService.AddAsync(productvm.Product);
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var deletedCategory = await _productService.GetAsync(c => c.Id == id);
-            await _productService.DeleteAsync(deletedCategory);
+            var deletedProduct = await _productService.GetAsync(c => c.Id == id);
+            var publicid = _photoService.GetPublicIdFromUrl(deletedProduct.Filename);
+            await _photoService.DeleteImageAsync(publicid);
+            await _productService.DeleteAsync(deletedProduct);
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var updatedCategory = await _productService.GetAsync(c => c.Id == id);
-            return View(updatedCategory);
+            var updatedProduct = await _productService.GetAsync(c => c.Id == id);
+            var model = new ProductCreateVM { Product = updatedProduct, Categories = await _categoryService.GetAllAsync() };
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Product product, IFormFile categoryImage)
+        public async Task<IActionResult> Edit(ProductCreateVM productVm, IFormFile? productImage)
         {
-            if (categoryImage == null || categoryImage.Length == 0)
+            var product = await _productService.GetAsync(p => p.Id == productVm.Product.Id);
+            if (productImage == null || productImage.Length == 0)
             {
-                ModelState.Remove("categoryImage");
+                ModelState.Remove("productImage");
+                productVm.Product.Filename = product.Filename;
             }
             if (!ModelState.IsValid)
             {
-                return View(product);
-            }
-            var isexists = await _productService.GetAsync(c => c.Name.ToLower().Trim() == product.Name.ToLower().Trim() && c.Id != product.Id);
-            if (isexists != null)
-            {
-                ModelState.AddModelError("Name", "Kateqoriya movcuddur");
-                return View(product);
+                productVm.Categories = await _categoryService.GetAllAsync();
+
+                return View(productVm);
             }
 
-            if (categoryImage != null && categoryImage.Length > 0)
+            if (productImage != null && productImage.Length > 0)
             {
-                string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "img");
-                string filePath = Path.Combine(uploadsFolder, categoryImage.FileName);
 
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await categoryImage.CopyToAsync(fileStream);
-                }
-                product.Filename = categoryImage.FileName;
+                var publicid =  _photoService.GetPublicIdFromUrl(product.Filename);
+
+                productVm.Product.Filename = await _photoService.UpdateImageAsync(productImage,publicid);
             }
+
+            product.Filename = productVm.Product.Filename;
+            product.Price = productVm.Product.Price;
+            product.IsFeatured = productVm.Product.IsFeatured;
+            product.IsNewArrival=productVm.Product.IsNewArrival;
+            product.CategoryId= productVm.Product.CategoryId;
+            product.Description = productVm.Product.Description;
+            product.Discount = productVm.Product.Discount;
+            product.Name= productVm.Product.Name;
 
 
             await _productService.UpdateAsync(product);

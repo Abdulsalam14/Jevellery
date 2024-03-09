@@ -32,7 +32,8 @@
             {
                 <div class="category-card">
                     <a asp-controller="shop" asp-action="index" asp-route-categoryId="@item.Id">
-                        <img src="~/img/@(item.Filename).jpg" />
+                        <img src="@item.Filename" />
+
                     </a>
                     <div class="category-text">
                         <p>@item.Name</p>
@@ -67,8 +68,8 @@
             @foreach (var item in Model.NewArrivalProducts)
             {
                 <div class="category-card">
-                    <a>
-                        <img src="~/img/Products/@(item.Filename).jpg" />
+                    <a asp-controller="product" asp-action="index" asp-route-productId="@item.Id">
+                        <img src="@item.Filename" />
                     </a>
                     <div class="card-icons">
                         <div class="card-icon-container">
@@ -183,34 +184,38 @@
             <span>- View All</span>
         </a>
         <div class="categories-container">
-            <div class="category-card">
-                <a>
-                    <img src="~/img/featured-product1.jpg" />
-                </a>
-                <div class="card-icons">
-                    <div class="card-icon-container">
-                        <button type="button" class="basket">
-                            <span class="tooltiptext">Add to cart</span>
-                            <i class="bi bi-basket-fill"></i>
-                        </button>
-                    </div>
-                    <div class="card-icon-container">
-                        <button type="button" class="view">
-                            <span class="tooltiptext">Quick View</span>
-                            <i class="bi bi-eye-fill"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="card-text">
-                    <span class="card-categoryname">Earrings</span>
-                    <a class="">
-                        <h2 class="card-productname">Minole Golden Earrings</h2>
+            @foreach (var item in Model.FeaturedProducts)
+            {
+                <div class="category-card">
+                    <a asp-controller="product" asp-action="index" asp-route-productId="@item.Id">
+                        <img src="@item.Filename" />
                     </a>
-                    <span class="card-price">$344</span>
+                    <div class="card-icons">
+                        <div class="card-icon-container">
+                            <button type="button" class="basket">
+                                <span class="tooltiptext">Add to cart</span>
+                                <i class="bi bi-basket-fill"></i>
+                            </button>
+                        </div>
+                        <div class="card-icon-container">
+                            <button type="button" class="view">
+                                <span class="tooltiptext">Quick View</span>
+                                <i class="bi bi-eye-fill"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-text">
+                        <span class="card-categoryname">@item.Category.Name</span>
+                        <a class="">
+                            <h2 class="card-productname">@item.Name</h2>
+                        </a>
+                        <span class="card-price">$@item.Price</span>
+                    </div>
                 </div>
-            </div>
 
-            <div class="category-card">
+            }
+
+            @* <div class="category-card">
                 <a>
                     <img src="~/img/featured-product2.jpg" />
                 </a>
@@ -235,7 +240,7 @@
                     </a>
                     <span class="card-price">$344</span>
                 </div>
-            </div>
+            </div> *@
         </div>
     </section>
     <section class="home-nineth">

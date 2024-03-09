@@ -10,12 +10,11 @@ namespace Jevellery.WebUI.Areas.Admin.Controllers
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
-        private readonly IWebHostEnvironment _hostingEnvironment;
-
-        public CategoryController(ICategoryService categoryService, IWebHostEnvironment hostingEnvironment)
+        private readonly IPhotoService _photoService;
+        public CategoryController(ICategoryService categoryService,  IPhotoService photoService)
         {
             _categoryService = categoryService;
-            _hostingEnvironment = hostingEnvironment;
+            _photoService = photoService;
         }
 
         public async Task<IActionResult> Index()
@@ -46,19 +45,12 @@ namespace Jevellery.WebUI.Areas.Admin.Controllers
             }
             if (categoryImage == null || categoryImage.Length == 0)
             {
+                ModelState.AddModelError("categoryImage", "photo is required");
                 return View(category);
             }
-            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "img");
-            string filePath = Path.Combine(uploadsFolder, categoryImage.FileName);
-            if (!Directory.Exists(uploadsFolder))
-            {
-                Directory.CreateDirectory(uploadsFolder);
-            }
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                await categoryImage.CopyToAsync(fileStream);
-            }
-            category.Filename = categoryImage.FileName;
+
+
+            category.Filename = await _photoService.UploadImageAsync(categoryImage);
             await _categoryService.AddAsync(category);
             return RedirectToAction(nameof(Index));
         }
@@ -67,6 +59,9 @@ namespace Jevellery.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var deletedCategory = await _categoryService.GetAsync(c => c.Id == id);
+
+            var publicid = _photoService.GetPublicIdFromUrl(deletedCategory.Filename);
+            await _photoService.DeleteImageAsync(publicid);
             await _categoryService.DeleteAsync(deletedCategory);
             return RedirectToAction(nameof(Index));
         }
@@ -98,14 +93,8 @@ namespace Jevellery.WebUI.Areas.Admin.Controllers
 
             if (categoryImage != null && categoryImage.Length > 0)
             {
-                string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "img");
-                string filePath = Path.Combine(uploadsFolder, categoryImage.FileName);
-
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await categoryImage.CopyToAsync(fileStream);
-                }
-                category.Filename = categoryImage.FileName;
+                var publicid = _photoService.GetPublicIdFromUrl(category.Filename);
+                category.Filename=await _photoService.UpdateImageAsync(categoryImage, publicid);
             }
 
 

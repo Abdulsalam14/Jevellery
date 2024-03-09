@@ -10,9 +10,9 @@ namespace Jewellery.Entities.Models
     public class Product : IEntity
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Filename { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
+        public string? Filename { get; set; }
         public decimal Price { get; set; }
         public int Discount { get; set; }
         public int CategoryId { get; set; }

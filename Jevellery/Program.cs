@@ -7,6 +7,7 @@ using Jewellery.DataAccess.Concrete.EFEntityFramework;
 using Jewellery.Entities;
 using Jewellery.Entities.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -26,6 +27,7 @@ builder.Services.AddScoped<ICartProductDal, EFCartProductDal>();
 builder.Services.AddScoped<ICartProductService, CartProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryDal, EFCategoryDal>();
+builder.Services.AddScoped<IPhotoService, PhotoService>();
 
 
 
@@ -78,7 +80,9 @@ using (var scope = scopeFactory.CreateScope())
 {
     var userManager = scope.ServiceProvider.GetService<UserManager<AppUser>>();
     var roleManager = scope.ServiceProvider.GetService<RoleManager<AppRole>>();
-    await DbInitializer.SeedAsync(userManager, roleManager);
+    var context = scope.ServiceProvider.GetService<AppDbContext>();
+    var photoService = scope.ServiceProvider.GetService<IPhotoService>();
+    await DbInitializer.SeedAsync(userManager, roleManager,context, photoService);
 
 }
 

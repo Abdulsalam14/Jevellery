@@ -1,0 +1,52 @@
+﻿@using Jevellery.WebUI.Areas.Admin.Models
+@model ProductCreateVM
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">Add Product</div>
+        <hr>
+        <form method="post" asp-action="edit" asp-controller="product" enctype="multipart/form-data" asp-area="admin">
+            <input type="hidden" asp-for="Product.Id" />
+            <div class="form-group">
+                <label asp-for="@Model.Product.Name"></label>
+                <input asp-for="@Model.Product.Name" class="form-control" placeholder="Enter Name">
+                <span asp-validation-for="@Model.Product.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Product.Description"></label>
+                <textarea asp-for="@Model.Product.Description" class="form-control"></textarea>
+                <span class="text-danger" asp-validation-for="@Model.Product.Description"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Product.Filename" class="form-label"></label>
+                <input type="file" accept="image/*" name="productImage" asp-for="@Model.Product.Filename" />
+                <span asp-validation-for="@Model.Product.Filename" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Product.Price"></label>
+                <input asp-for="@Model.Product.Price" class="form-control" placeholder="Enter Price">
+                <span asp-validation-for="@Model.Product.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Product.Discount"></label>
+                <input asp-for="@Model.Product.Discount" class="form-control" min="0" max="100" placeholder="Enter Discount">
+                <span asp-validation-for="@Model.Product.Discount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.CategoryId" class="control-label"></label>
+                <select asp-for="Product.CategoryId" class="form-control">
+                    <option value="">Select Category</option>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-light px-5">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

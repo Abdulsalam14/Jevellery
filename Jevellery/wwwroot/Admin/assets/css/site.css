@@ -2,3 +2,10 @@
    width:100px;
    height:100px;
 }
+
+.shorten-text {
+    max-width: 150px; /* Maksimum genişlik */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; /* Metni kes ve üç nokta (...) ile göster */
+}

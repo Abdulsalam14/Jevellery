@@ -24,6 +24,7 @@ namespace Jevellery.Controllers
             {
                 Categories = await _categoryService.GetAllAsync(),
                 NewArrivalProducts = await _productService.GetNewArrivalProducts(),
+                FeaturedProducts=await _productService.GetFeaturedProducts(),
             };
             return View(model);
         }
