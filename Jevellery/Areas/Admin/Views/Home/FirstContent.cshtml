@@ -1,0 +1,37 @@
+﻿@model HomeFirstContent
+
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex">
+            <h5 class="card-title">Home First Content</h5>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>@Model.Id</th>
+                        
+                        <td class="shorten-text">@Model.Title</td>
+                        <td class="shorten-text">@Model.Description</td>
+                        <td class="admin-first-img">
+                            <img src="@Model.ImageUrl" />
+                        </td>
+
+                        <td>
+                            <a class="btn btn-outline-warning text-white" asp-action="editfirstcontent" asp-controller="home" asp-area="admin">Edit</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

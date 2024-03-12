@@ -9,7 +9,7 @@
             var item = Model.CartProducts[i];
             <li class="cart-item @(i == 0 ? "first" : "")">
                 <div class="cart-img">
-                    <img src="~/img/Products/@(item.Product.Filename).jpg" />
+                    <img src="@item.Product.Filename" />
                 </div>
                 <div class="cart-main">
                     <div class="cart-main-left">

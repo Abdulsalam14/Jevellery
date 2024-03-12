@@ -10,11 +10,12 @@ namespace Jevellery.Controllers
     {
         private readonly ICategoryService _categoryService;
         private readonly IProductService _productService;
-
-        public HomeController(ICategoryService categoryService, IProductService productService = null)
+        private readonly IFirstContentService _firstContentService;
+        public HomeController(ICategoryService categoryService, IProductService productService = null, IFirstContentService firstContentService = null)
         {
             _categoryService = categoryService;
             _productService = productService;
+            _firstContentService = firstContentService;
         }
 
 
@@ -24,7 +25,8 @@ namespace Jevellery.Controllers
             {
                 Categories = await _categoryService.GetAllAsync(),
                 NewArrivalProducts = await _productService.GetNewArrivalProducts(),
-                FeaturedProducts=await _productService.GetFeaturedProducts(),
+                FeaturedProducts = await _productService.GetFeaturedProducts(),
+                FirstContent = await _firstContentService.GetAsync(a=>a.Id>0)
             };
             return View(model);
         }

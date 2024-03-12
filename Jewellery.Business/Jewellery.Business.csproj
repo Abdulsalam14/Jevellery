@@ -16,4 +16,9 @@
     <ProjectReference Include="..\Jewellery.Entities\Jewellery.Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Abstract\HomePage\" />
+    <Folder Include="Concrete\HomePage\" />
+  </ItemGroup>
+
 </Project>

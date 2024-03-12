@@ -4,14 +4,31 @@
 
 <div class="product-top">
     <div class="product-img">
-        <img src="~/img/Products/@(Model.FileName).jpg" />
+        <img src="@Model.FileName" />
+        @if (Model.Discount > 0)
+        {
+            <div class="card-discount">
+                <span>-@Model.Discount%</span>
+            </div>
+        }
     </div>
     <div class="product-info">
         <a asp-action="index" asp-controller="shop" asp-route-categoryId="@Model.CategoryId">@Model.CategoryName</a>
         <h2 class="title">@Model.Name</h2>
         <div>
-            <span class="card-price">$@Model.Price</span>
-            <span>+ Free Shipping</span>
+            @if (Model.Discount > 0)
+            {
+                var discountPrice = Model.Price * ((decimal)Model.Discount / 100);
+                var price = Model.Price - discountPrice;
+                price = Math.Round(price, 2);
+                Model.Price = Math.Round(Model.Price, 2);
+                <span class="card-price disc">$@Model.Price</span>
+                <span class="card-price">$@price</span>
+            }
+            else
+            {
+                <span class="card-price">$@Model.Price</span>
+            }
         </div>
         <p>@Model.Description</p>
         <div class="product-info-bottom">
@@ -21,7 +38,7 @@
         <div class="product-add">
             <div class="cart-quantity">
                 <span onclick="minusProductQuantity()">-</span>
-                @* <span id="cart-quantity-text">@item.Quantity</span> *@
+
                 <input id="productQuantityInput" type="number" inputmode="numeric" maxlength="2" step="1" value="1" />
                 <span onclick="plusProductQuantity()">+</span>
             </div>

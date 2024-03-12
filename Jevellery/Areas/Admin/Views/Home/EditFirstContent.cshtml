@@ -1,0 +1,29 @@
+﻿@model HomeFirstContent
+
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">Add Category</div>
+        <hr>
+        <form method="post" asp-action="editfirstcontent" asp-controller="home" enctype="multipart/form-data" asp-area="admin">
+            <div class="form-group">
+                <label asp-for="Title"></label>
+                <input asp-for="Title" class="form-control" placeholder="Enter Title">
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl" class="form-label"></label>
+                <input type="hidden" asp-for="ImageUrl" />
+                <input type="file" accept="image/*" name="newImage" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-light px-5">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

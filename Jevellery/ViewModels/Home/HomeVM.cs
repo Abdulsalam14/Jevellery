@@ -5,7 +5,8 @@ namespace Jevellery.ViewModels.Home
     public class HomeVM
     {
         public List<Category>? Categories { get; set; }
-        public List<Product> NewArrivalProducts { get; set; }
-        public List<Product> FeaturedProducts { get; set; }
+        public List<Product>? NewArrivalProducts { get; set; }
+        public List<Product>? FeaturedProducts { get; set; }
+        public HomeFirstContent? FirstContent { get; set; }
     }
 }

@@ -40,7 +40,8 @@ namespace Jevellery.Controllers
                 Price=product.Price,
                 ProductId=productId,
                 Description=product.Description,
-                FileName=product.Filename
+                FileName=product.Filename,
+                Discount=product.Discount
             };
 
             return PartialView("_QuickViewPartialView", model);

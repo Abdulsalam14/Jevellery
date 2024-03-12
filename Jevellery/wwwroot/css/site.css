@@ -119,6 +119,10 @@ a {
     color: black;
 }
 
+a:hover{
+    color:initial;
+}
+
 nav > ul {
     padding-left: 0;
     margin: 0;
@@ -452,14 +456,18 @@ nav {
 
 
 .home-first-img {
-    background-image: url("/img/hero-01.jpg");
-    background-repeat: no-repeat;
-    background-position: center right;
-    background-attachment: fixed;
-    background-size: 50% 100%;
     width: 50%;
     height: 100%;
 }
+
+    .home-first-img > img {
+        width: 100%;
+        background-repeat: no-repeat;
+        background-position: center right;
+        background-attachment: fixed;
+        background-size: 50% 100%;
+        height: 100%;
+    }
 
 .home-first-text {
     color: black;
@@ -509,13 +517,11 @@ nav {
         border: none;
         text-decoration: underline;
         margin-top: 20px;
-        padding-bottom: 40px;
+        margin-bottom: 40px;
     }
 
         .home-second .explore-btn:hover {
-            opacity: 0.6;
-            color: initial;
-            background-color: initial;
+            opacity: 0.6; 
         }
 
 .categories-container {
@@ -523,6 +529,7 @@ nav {
     justify-content: space-between;
     width: 63%;
     margin: auto;
+    flex-wrap:wrap;
 }
 
 .category-card {
@@ -600,13 +607,11 @@ nav {
         border: none;
         text-decoration: underline;
         margin-top: 20px;
-        padding-bottom: 40px;
+        margin-bottom: 40px;
     }
 
         .home-fourth .explore-btn:hover, .home-eighth .explore-btn:hover {
             opacity: 0.6;
-            color: initial;
-            background-color: initial;
         }
 
     .home-fourth .category-card, .home-eighth .category-card {
@@ -1784,7 +1789,7 @@ label span {
 
 .image-overlay,.quick-view {
     display: none;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     background-color: rgba(0,0,0,0.7);

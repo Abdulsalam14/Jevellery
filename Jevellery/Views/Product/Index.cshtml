@@ -10,6 +10,12 @@
                 <div onclick="showImage()" class="zoom">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
+                @if (Model.Product.Discount > 0)
+                {
+                    <div class="card-discount">
+                        <span>-@Model.Product.Discount%</span>
+                    </div>
+                }
             </div>
             <div class="product-info">
                 <div class="product-routes">
@@ -22,7 +28,20 @@
                 <a asp-action="index" asp-controller="shop" asp-route-categoryId="@Model.Product.CategoryId">@Model.Product.Category.Name</a>
                 <h2 class="title">@Model.Product.Name</h2>
                 <div>
-                    <span class="card-price">$@Model.Product.Price</span>
+                    @if (Model.Product.Discount > 0)
+                    {
+                        var discountPrice = Model.Product.Price * ((decimal)Model.Product.Discount / 100);
+                        var price = Model.Product.Price - discountPrice;
+                        price = Math.Round(price, 2);
+                        Model.Product.Price = Math.Round(Model.Product.Price, 2);
+                        <span class="card-price disc">$@Model.Product.Price</span>
+                        <span class="card-price">$@price</span>
+                    }
+                    else
+                    {
+                        <span class="card-price">$@Model.Product.Price</span>
+                    }
+                    @* <span class="card-price">$@Model.Product.Price</span> *@
                     <span>+ Free Shipping</span>
                 </div>
                 <p>@Model.Product.Description</p>

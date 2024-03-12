@@ -9,8 +9,8 @@
     <section class="home-first">
         <div class="home-first-text title">
             <div>
-                <h1 class="title">Jewelry of Precious Craft</h1>
-                <p class="title-text">Because every piece caries a precious story</p>
+                <h1 class="title">@Model.FirstContent.Title</h1>
+                <p class="title-text">@Model.FirstContent.Description</p>
                 <div class="explore-btn">
                     <a>
                         <span>- Explore Now</span>
@@ -19,6 +19,7 @@
             </div>
         </div>
         <div class="home-first-img">
+            <img src="@Model.FirstContent.ImageUrl" />
         </div>
     </section>
     <section class="home-second">
@@ -34,12 +35,12 @@
                     <a asp-controller="shop" asp-action="index" asp-route-categoryId="@item.Id">
                         <img src="@item.Filename" />
 
+                        <div class="category-text">
+                            <p>@item.Name</p>
+                            <span>@item.Products.Count</span>
+                            <span>Products</span>
+                        </div>
                     </a>
-                    <div class="category-text">
-                        <p>@item.Name</p>
-                        <span>@item.Products.Count</span>
-                        <span>Products</span>
-                    </div>
                 </div>
 
             }
@@ -68,18 +69,24 @@
             @foreach (var item in Model.NewArrivalProducts)
             {
                 <div class="category-card">
-                    <a asp-controller="product" asp-action="index" asp-route-productId="@item.Id">
+                    <a asp-action="index" asp-controller="product" asp-route-productId="@item.Id">
                         <img src="@item.Filename" />
                     </a>
+                    @if (item.Discount > 0)
+                    {
+                        <div class="card-discount">
+                            <span>-@item.Discount%</span>
+                        </div>
+                    }
                     <div class="card-icons">
                         <div class="card-icon-container">
-                            <button type="button" class="basket">
+                            <button onclick="addToCart(@item.Id)" type="button" class="basket">
                                 <span class="tooltiptext">Add to cart</span>
                                 <i class="bi bi-basket-fill"></i>
                             </button>
                         </div>
                         <div class="card-icon-container">
-                            <button type="button" class="view">
+                            <button onclick="showQuickView(@item.Id)" type="button" class="view">
                                 <span class="tooltiptext">Quick View</span>
                                 <i class="bi bi-eye-fill"></i>
                             </button>
@@ -87,10 +94,20 @@
                     </div>
                     <div class="card-text">
                         <span class="card-categoryname">@item.Category.Name</span>
-                        <a class="">
+                        <a asp-action="index" asp-controller="product" asp-route-productId="@item.Id">
                             <h2 class="card-productname">@item.Name</h2>
                         </a>
-                        <span class="card-price">$@item.Price</span>
+                        @if (item.Discount > 0)
+                        {
+                            var discountPrice = (double)item.Price * ((double)item.Discount / 100);
+                            var price = (double)item.Price - discountPrice;
+                            <span class="card-price disc">$@item.Price</span>
+                            <span class="card-price">$@price</span>
+                        }
+                        else
+                        {
+                            <span class="card-price">$@item.Price</span>
+                        }
                     </div>
                 </div>
 
@@ -187,18 +204,24 @@
             @foreach (var item in Model.FeaturedProducts)
             {
                 <div class="category-card">
-                    <a asp-controller="product" asp-action="index" asp-route-productId="@item.Id">
+                    <a asp-action="index" asp-controller="product" asp-route-productId="@item.Id">
                         <img src="@item.Filename" />
                     </a>
+                    @if (item.Discount > 0)
+                    {
+                        <div class="card-discount">
+                            <span>-@item.Discount%</span>
+                        </div>
+                    }
                     <div class="card-icons">
                         <div class="card-icon-container">
-                            <button type="button" class="basket">
+                            <button onclick="addToCart(@item.Id)" type="button" class="basket">
                                 <span class="tooltiptext">Add to cart</span>
                                 <i class="bi bi-basket-fill"></i>
                             </button>
                         </div>
                         <div class="card-icon-container">
-                            <button type="button" class="view">
+                            <button onclick="showQuickView(@item.Id)" type="button" class="view">
                                 <span class="tooltiptext">Quick View</span>
                                 <i class="bi bi-eye-fill"></i>
                             </button>
@@ -206,41 +229,24 @@
                     </div>
                     <div class="card-text">
                         <span class="card-categoryname">@item.Category.Name</span>
-                        <a class="">
+                        <a asp-action="index" asp-controller="product" asp-route-productId="@item.Id">
                             <h2 class="card-productname">@item.Name</h2>
                         </a>
-                        <span class="card-price">$@item.Price</span>
+                        @if (item.Discount > 0)
+                        {
+                            var discountPrice = item.Price * ((decimal)item.Discount / 100);
+                            var price = item.Price - discountPrice;
+                            <span class="card-price disc">$@item.Price</span>
+                            <span class="card-price">$@price</span>
+                        }
+                        else
+                        {
+                            <span class="card-price">$@item.Price</span>
+                        }
                     </div>
                 </div>
 
             }
-
-            @* <div class="category-card">
-                <a>
-                    <img src="~/img/featured-product2.jpg" />
-                </a>
-                <div class="card-icons">
-                    <div class="card-icon-container">
-                        <button type="button" class="basket">
-                            <span class="tooltiptext">Add to cart</span>
-                            <i class="bi bi-basket-fill"></i>
-                        </button>
-                    </div>
-                    <div class="card-icon-container">
-                        <button type="button" class="view">
-                            <span class="tooltiptext">Quick View</span>
-                            <i class="bi bi-eye-fill"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="card-text">
-                    <span class="card-categoryname">Earrings</span>
-                    <a class="">
-                        <h2 class="card-productname">Minole Golden Earrings</h2>
-                    </a>
-                    <span class="card-price">$344</span>
-                </div>
-            </div> *@
         </div>
     </section>
     <section class="home-nineth">

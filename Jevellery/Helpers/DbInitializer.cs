@@ -47,22 +47,19 @@ namespace Jevellery.Helpers
             {
                 await context.Categories.AddRangeAsync(new[]
                 {
-                    new Category() { 
+                    new Category() {
                         Name = "Earrings",
-                        //Filename = "category1"
-                    Filename=await photoservice.UploadImageFromPathAsync("C:\\Users\\HP\\source\\repos\\Jevellery\\Jevellery\\wwwroot\\img\\category1.jpg"),
+                        Filename="https://res.cloudinary.com/drtjslzxf/image/upload/v1709930543/bucnq4c02adk4yljbbri.jpg"
 
                     },
                     new Category() {
-                        Name = "Necklages", 
-                        //Filename = "category2" 
-                    Filename=await photoservice.UploadImageFromPathAsync("C:\\Users\\HP\\source\\repos\\Jevellery\\Jevellery\\wwwroot\\img\\category2.jpg"),
+                        Name = "Necklages",
+                        Filename="https://res.cloudinary.com/drtjslzxf/image/upload/v1709930544/qgofzxaqcwxvmhgk4imk.jpg",
 
                     },
-                    new Category() { 
-                        Name = "Rings", 
-                        //Filename = "category3" 
-                    Filename=await photoservice.UploadImageFromPathAsync("C:\\Users\\HP\\source\\repos\\Jevellery\\Jevellery\\wwwroot\\img\\category3.jpg"),
+                    new Category() {
+                        Name = "Rings",
+                        Filename="https://res.cloudinary.com/drtjslzxf/image/upload/v1709930544/e3qihj7geql7m3alv51e.jpg"
 
                     }
                 });
@@ -82,8 +79,7 @@ namespace Jevellery.Helpers
                     Price = 325.00M,
                     CategoryId = 1,
                     Discount = 0,
-                    //Filename = "product-01",
-                    Filename=await photoservice.UploadImageFromPathAsync("C:\\Users\\HP\\source\\repos\\Jevellery\\Jevellery\\wwwroot\\img\\Products\\product-01.jpg"),
+                    Filename="https://res.cloudinary.com/drtjslzxf/image/upload/v1709930545/anfvvim7qy3vkidkkjvd.jpg",
                     IsNewArrival = true,
                 },
                 new Product()
@@ -94,8 +90,7 @@ namespace Jevellery.Helpers
                     Price = 325.00M,
                     CategoryId = 2,
                     Discount = 0,
-                    //Filename = "product-02",
-                    Filename=await photoservice.UploadImageFromPathAsync("C:\\Users\\HP\\source\\repos\\Jevellery\\Jevellery\\wwwroot\\img\\Products\\product-02.jpg"),
+                    Filename="https://res.cloudinary.com/drtjslzxf/image/upload/v1709930546/xlu6tedjew9xntbcvnzj.jpg",
                     IsNewArrival = true,
                 },
                 new Product()
@@ -106,8 +101,7 @@ namespace Jevellery.Helpers
                     Price = 325.00M,
                     CategoryId = 3,
                     Discount = 26,
-                    //Filename = "product-03"
-                    Filename=await photoservice.UploadImageFromPathAsync("C:\\Users\\HP\\source\\repos\\Jevellery\\Jevellery\\wwwroot\\img\\Products\\product-03.jpg"),
+                    Filename="https://res.cloudinary.com/drtjslzxf/image/upload/v1709930546/wjgmlsrhnbpfwogwa3td.jpg",
 
                 },
                 new Product()
@@ -118,8 +112,7 @@ namespace Jevellery.Helpers
                     Price = 375.00M,
                     CategoryId = 3,
                     Discount = 29,
-                    //Filename = "product-04"
-                    Filename=await photoservice.UploadImageFromPathAsync("C:\\Users\\HP\\source\\repos\\Jevellery\\Jevellery\\wwwroot\\img\\Products\\product-04.jpg"),
+                    Filename="https://res.cloudinary.com/drtjslzxf/image/upload/v1709930546/mb5oo9kk3iubjpcwdsl8.jpg"
 
                 },
                 new Product()
@@ -130,8 +123,7 @@ namespace Jevellery.Helpers
                     Price = 450.00M,
                     CategoryId = 3,
                     Discount = 13,
-                    //Filename = "product-05"
-                    Filename=await photoservice.UploadImageFromPathAsync("C:\\Users\\HP\\source\\repos\\Jevellery\\Jevellery\\wwwroot\\img\\Products\\product-05.jpg"),
+                    Filename="https://res.cloudinary.com/drtjslzxf/image/upload/v1709930547/i29hscsrbizqfkyjd3on.jpg",
 
                 },
                 new Product()
@@ -142,8 +134,7 @@ namespace Jevellery.Helpers
                     Price = 525.00M,
                     CategoryId = 3,
                     Discount = 29,
-                    //Filename = "product-06"
-                    Filename=await photoservice.UploadImageFromPathAsync("C:\\Users\\HP\\source\\repos\\Jevellery\\Jevellery\\wwwroot\\img\\Products\\product-06.jpg"),
+                    Filename="https://res.cloudinary.com/drtjslzxf/image/upload/v1709930548/wzwletlgtefc7higb97y.jpg",
 
                 },
                 new Product()
@@ -155,7 +146,7 @@ namespace Jevellery.Helpers
                     CategoryId = 1,
                     Discount = 0,
                     //Filename = "product-07",
-                    Filename=await photoservice.UploadImageFromPathAsync("C:\\Users\\HP\\source\\repos\\Jevellery\\Jevellery\\wwwroot\\img\\Products\\product-07.jpg"),
+                    Filename="https://res.cloudinary.com/drtjslzxf/image/upload/v1709930549/kbkncdxqffjv5frquknc.jpg",
 
                     IsNewArrival = true
                 },
@@ -168,7 +159,7 @@ namespace Jevellery.Helpers
                     CategoryId = 1,
                     Discount = 0,
                     //Filename = "product-08"
-                    Filename=await photoservice.UploadImageFromPathAsync("C:\\Users\\HP\\source\\repos\\Jevellery\\Jevellery\\wwwroot\\img\\Products\\product-08.jpg"),
+                    Filename="https://res.cloudinary.com/drtjslzxf/image/upload/v1709930549/acnlurxpm3nxzr06yk3v.jpg",
 
                 },
                 new Product()
@@ -180,7 +171,7 @@ namespace Jevellery.Helpers
                     CategoryId = 1,
                     Discount = 0,
                     //Filename = "product-09",
-                    Filename=await photoservice.UploadImageFromPathAsync("C:\\Users\\HP\\source\\repos\\Jevellery\\Jevellery\\wwwroot\\img\\Products\\product-09.jpg"),
+                    Filename="https://res.cloudinary.com/drtjslzxf/image/upload/v1709930550/j4vwspyj3snhrvsz1ji1.jpg",
 
                     IsFeatured = true
                 },
@@ -193,7 +184,7 @@ namespace Jevellery.Helpers
                     CategoryId = 1,
                     Discount = 0,
                     //Filename = "product-010"
-                    Filename=await photoservice.UploadImageFromPathAsync("C:\\Users\\HP\\source\\repos\\Jevellery\\Jevellery\\wwwroot\\img\\Products\\product-010.jpg"),
+                    Filename="https://res.cloudinary.com/drtjslzxf/image/upload/v1709930550/cemcefrltw2goow6q8ny.jpg",
 
                 },
                 new Product()
@@ -205,8 +196,7 @@ namespace Jevellery.Helpers
                     CategoryId = 2,
                     Discount = 0,
                     //Filename = "product-011"
-                    Filename=await photoservice.UploadImageFromPathAsync("C:\\Users\\HP\\source\\repos\\Jevellery\\Jevellery\\wwwroot\\img\\Products\\product-011.jpg"),
-
+                    Filename="https://res.cloudinary.com/drtjslzxf/image/upload/v1709930551/ldlrakhdz9dmvrwbl7fs.jpg",
                 },
                 new Product()
                 {
@@ -217,7 +207,7 @@ namespace Jevellery.Helpers
                     CategoryId = 2,
                     Discount = 0,
                     //Filename = "product-012"
-                    Filename=await photoservice.UploadImageFromPathAsync("C:\\Users\\HP\\source\\repos\\Jevellery\\Jevellery\\wwwroot\\img\\Products\\product-012.jpg"),
+                    Filename="https://res.cloudinary.com/drtjslzxf/image/upload/v1709930551/sttdibzmqc76bhxk1ado.jpg",
 
                 },
                 new Product()
@@ -228,8 +218,7 @@ namespace Jevellery.Helpers
                     Price = 325.00M,
                     CategoryId = 3,
                     Discount = 0,
-                    //Filename = "product-013",
-                    Filename=await photoservice.UploadImageFromPathAsync("C:\\Users\\HP\\source\\repos\\Jevellery\\Jevellery\\wwwroot\\img\\Products\\product-013.jpg"),
+                    Filename="https://res.cloudinary.com/drtjslzxf/image/upload/v1709930552/k456tt0cncs079pjyrmd.jpg",
 
                     IsFeatured = true
                 }
