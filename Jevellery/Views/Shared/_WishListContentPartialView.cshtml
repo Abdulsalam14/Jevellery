@@ -1,0 +1,61 @@
+﻿@using Jevellery.WebUI.ViewModels.WishList
+@model WishListVM
+<h2 class="title">WishList</h2>
+@if (Model.Products.Count > 0)
+{
+    <div class="card">
+        <div class="card-body" style="border:none">
+            <div class="table-responsive ">
+                <table class="table table-sm wishlist">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Product</th>
+                            <th scope="col">Price</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var product in Model.Products)
+                        {
+                            <tr class="wishlist-b">
+                                <td>
+                                    <div class="cart-img">
+                                        <img src="@product.Filename" />
+                                    </div>
+
+                                </td>
+                                <td>
+                                    <a asp-controller="product" asp-action="index" asp-route-productId="@product.Id">
+                                        @product.Name
+
+                                    </a>
+                                </td>
+                                <td>
+
+
+                                    @if (product.Discount > 0)
+                                    {
+                                        var discountPrice = (double)product.Price * ((double)product.Discount / 100);
+                                        var price = (double)product.Price - discountPrice;
+                                        <span class="card-price disc">$@product.Price</span>
+                                        <span class="card-price">$@price</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="card-price">$@product.Price</span>
+                                    }
+
+                                </td>
+                                <td>
+                                    <span class="cart-x"><i onclick="removeWishlistMain(@product.Id)" class="fa-solid fa-xmark"></i></span>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}

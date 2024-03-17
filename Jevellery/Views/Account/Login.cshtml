@@ -3,7 +3,7 @@
 
 @{
     Layout = "_LayoutDemo";
-    var returnUrl = Context.Request.Query["ReturnUrl"];
+    var returnUrl =Context.Request.Query["ReturnUrl"].ToString();
 }
 
 <div class="container mt-5">

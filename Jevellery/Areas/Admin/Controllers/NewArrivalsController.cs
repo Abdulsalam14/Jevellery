@@ -2,12 +2,14 @@
 using Jewellery.Business.Abstract;
 using Jewellery.Business.Concrete;
 using Jewellery.Entities.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Jevellery.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class NewArrivalsController : Controller
     {
         private readonly IProductService _productService;

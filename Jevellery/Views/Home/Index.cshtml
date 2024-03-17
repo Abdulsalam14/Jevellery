@@ -91,6 +91,22 @@
                                 <i class="bi bi-eye-fill"></i>
                             </button>
                         </div>
+                        <div class="card-icon-container">
+                            @if (!item.IsWishList)
+                            {
+                                <button onclick="addWishlist(@item.Id, this)" type="button" class="view">
+                                    <span class="tooltiptext">Add To Wishlist</span>
+                                    <i class="heart-icon fa-regular fa-heart"></i>
+                                </button>
+                            }
+                            else
+                            {
+                                <button onclick="removeWishlist(@item.Id, this)" type="button" class="view">
+                                    <span class="tooltiptext">Remove Wishlist</span>
+                                    <i style="color:#db9662" class="heart-icon fa-solid fa-heart"></i>
+                                </button>
+                            }
+                        </div>
                     </div>
                     <div class="card-text">
                         <span class="card-categoryname">@item.Category.Name</span>
@@ -126,7 +142,7 @@
             </div>
             <p class="title-text">Discover our awesome rings collection</p>
             <div class="explore-btn">
-                <a>
+                <a asp-controller="shop" asp-action="index" asp-route-categoryId="3">
                     <span>- Discover The Collection</span>
                 </a>
             </div>
@@ -152,47 +168,22 @@
 
     <section class="home-seventh">
         <div class="collections">
-            <div class="collection-card">
-                <img src="~/img/collection1.jpg" />
-                <div class="collection-card-overlay"></div>
-                <div class="collection-card-text">
-                    <h2>
-                        <a href="#">Lammar Collection</a>
-                    </h2>
-                    <p>The perfect match for any outfit</p>
-                    <h6>
-                        Starting at $<span>350.00</span>
-                    </h6>
+            @foreach (var item in Model.Collections)
+            {
+                <div class="collection-card">
+                    <img src="@item.ImageUrl" />
+                    <div class="collection-card-overlay"></div>
+                    <div class="collection-card-text">
+                        <h2>
+                            <a href="#">@item.Title</a>
+                        </h2>
+                        <p>@item.Description</p>
+                        <h6>
+                            Starting at $<span>@item.StartTime</span>
+                        </h6>
+                    </div>
                 </div>
-            </div>
-            <div class="collection-card">
-                <img src="~/img/collection2.jpg" />
-                <div class="collection-card-overlay"></div>
-
-                <div class="collection-card-text">
-                    <h2>
-                        <a href="#">Fermina Collection</a>
-                    </h2>
-                    <p>The perfect match for any outfit</p>
-                    <h6>
-                        Starting at $<span>350.00</span>
-                    </h6>
-                </div>
-            </div>
-            <div class="collection-card">
-                <img src="~/img/collection3.jpg" />
-                <div class="collection-card-overlay"></div>
-
-                <div class="collection-card-text">
-                    <h2>
-                        <a href="#">Tolentino Collection</a>
-                    </h2>
-                    <p>The perfect match for any outfit</p>
-                    <h6>
-                        Starting at $<span>350.00</span>
-                    </h6>
-                </div>
-            </div>
+            }
         </div>
     </section>
     <section class="home-eighth">
@@ -225,6 +216,22 @@
                                 <span class="tooltiptext">Quick View</span>
                                 <i class="bi bi-eye-fill"></i>
                             </button>
+                        </div>
+                        <div class="card-icon-container">
+                            @if (!item.IsWishList)
+                            {
+                                <button onclick="addWishlist(@item.Id, this)" type="button" class="view">
+                                    <span class="tooltiptext">Add To Wishlist</span>
+                                    <i class="heart-icon fa-regular fa-heart"></i>
+                                </button>
+                            }
+                            else
+                            {
+                                <button onclick="removeWishlist(@item.Id, this)" type="button" class="view">
+                                    <span class="tooltiptext">Remove Wishlist</span>
+                                    <i style="color:#db9662" class="heart-icon fa-solid fa-heart"></i>
+                                </button>
+                            }
                         </div>
                     </div>
                     <div class="card-text">

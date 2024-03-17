@@ -22,6 +22,7 @@ namespace Jewellery.Entities
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartProduct> CartProducts { get; set; }
         public DbSet<HomeFirstContent> HomeFirstContent { get; set; }
+        public DbSet<Collection> Collections { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

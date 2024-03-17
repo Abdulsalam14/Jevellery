@@ -1,0 +1,33 @@
+﻿@model Collection
+
+<div class="card">
+    <div class="card-body">
+        <hr>
+        <form method="post" asp-action="edit" asp-controller="collection" enctype="multipart/form-data" asp-area="admin">
+            <input type="hidden" asp-for="@Model.ImageUrl" />
+            <div class="form-group">
+                <label asp-for="@Model.Title"></label>
+                <input asp-for="@Model.Title" class="form-control" placeholder="Enter Name">
+                <span asp-validation-for="@Model.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Description"></label>
+                <textarea asp-for="@Model.Description" class="form-control"></textarea>
+                <span class="text-danger" asp-validation-for="@Model.Description"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.ImageUrl" class="form-label"></label>
+                <input type="file" accept="image/*" name="collectionImage" />
+                <span asp-validation-for="@Model.ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.StartTime"></label>
+                <input asp-for="@Model.StartTime" class="form-control" placeholder="Enter Price">
+                <span asp-validation-for="@Model.StartTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-light px-5">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

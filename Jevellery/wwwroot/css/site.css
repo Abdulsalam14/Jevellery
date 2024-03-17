@@ -831,11 +831,13 @@ nav {
 .collections {
     display: flex;
     justify-content: space-around;
+    flex-wrap:wrap
 }
 
 .collection-card {
     width: 32.5%;
     position: relative;
+    margin-bottom:10px;
 }
 
     .collection-card img {
@@ -2001,3 +2003,41 @@ label span {
     width:24%;
 }
 
+
+.wishlist{
+    margin:0;
+}
+
+.wishlist .cart-img{
+    width:100px;
+}
+
+.wishlist .cart-img img{
+    width:100%;
+}
+
+
+.wishlist tbody{
+    border:none !important;
+}
+
+.wishlist-b td{
+    vertical-align:middle;
+}
+
+.wishlist thead {
+    border: 1px solid lightgray;
+    background-color: #faf7f5;
+    padding:5px 0 !important;
+    color:#666;
+}
+
+.wishlist tbody tr {
+    border:1px solid lightgray
+}
+
+.card-body{
+    border:none;
+    margin:0;
+    padding:0;
+}

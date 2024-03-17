@@ -36,6 +36,14 @@ internal class Program
         builder.Services.AddScoped<IPhotoService, PhotoService>();
         builder.Services.AddScoped<IFirstContentService, FirstContentService>();
         builder.Services.AddScoped<IFIrstContentDal, EFFirstContentDal>();
+        builder.Services.AddScoped<IWishListDal,EFWishListDal>();
+        builder.Services.AddScoped<IWishListService,WishListService>();
+        builder.Services.AddScoped<IWishListProductDal,EFWishListProductDal>();
+        builder.Services.AddScoped<IWishListProductService,WishListProductService>();
+        builder.Services.AddScoped<ICollectionDal,EFCollectionDal>();
+        builder.Services.AddScoped<ICollectionService,CollectionService>();
+        builder.Services.AddSingleton<IHttpContextAccessor,HttpContextAccessor>();
+
 
 
 

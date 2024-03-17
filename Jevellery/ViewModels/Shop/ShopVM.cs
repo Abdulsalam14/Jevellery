@@ -1,11 +1,12 @@
-﻿using Jewellery.Entities.Models;
+﻿using Jevellery.WebUI.ViewModels.Shop;
+using Jewellery.Entities.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Jevellery.ViewModels.Shop
 {
     public class ShopVM
     {
-        public List<Product> Products { get; set; }
+        public List<ProductShopVM> Products { get; set; }
         public List<SelectListItem> Selects { get; set; }
         public List<Category> Categories { get; set; }
         public int PageCount { get; set; }

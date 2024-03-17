@@ -51,8 +51,10 @@ function addToCart(productId) {
             getCartProducts();
         },
 
-        error: function () {
-            alert('Error while getting user info');
+        error: function (xhr) {
+            if (!xhr.status === 401) {
+                alert('Error while getting cart products. Please try again later.');
+            }
         }
     });
 }
@@ -83,8 +85,10 @@ function addToCartPR(productId) {
             getCartProducts();
         },
 
-        error: function () {
-            alert('Error while getting user info');
+        error: function (xhr) {
+            if (!xhr.status === 401) {
+                alert('Error while getting cart products. Please try again later.');
+            }
         }
     });
 }
@@ -404,6 +408,109 @@ function closeQuickView() {
     document.body.style.overflow = 'initial';
 
 }
+
+
+
+
+
+function addWishlist(productId, button) {
+    $.ajax({
+        url: `/WishList/Add?productId=${productId}`,
+        type: 'GET',
+        success: function () {
+            console.log('added wishlist')
+        },
+
+        error: function (xhr) {
+            alert('Error while getting Product. Please try again later.');
+        }
+    });
+
+
+    var iconElement = button.querySelector('.heart-icon');
+    var text = button.querySelector('.tooltiptext');
+    if (iconElement) {
+        iconElement.classList.remove('fa-regular');
+        iconElement.classList.add('fa-solid');
+        iconElement.style.color = '#db9662';
+        text.innerHTML="Remove Wishlist"
+    }
+    button.onclick = function () {
+        removeWishlist( productId, button);
+    };
+}
+
+
+function removeWishlist(productId, button) {
+    $.ajax({
+        url: `/WishList/Remove?id=${productId}`,
+        type: 'GET',
+        success: function () {
+            console.log('removed wishlist')
+        },
+
+        error: function (xhr) {
+            alert('Error while getting Product. Please try again later.');
+        }
+    });
+
+
+
+    var iconElement = button.querySelector('.heart-icon');
+    var text = button.querySelector('.tooltiptext');
+    if (iconElement) {
+        iconElement.classList.remove('fa-solid');
+        iconElement.classList.add('fa-regular');
+        iconElement.style.color = 'initial';
+        text.innerHTML = "Add to Wishlist"
+    }
+    button.onclick = function () {
+        addWishlist(productId, button);
+    };
+    getWishlistProducts();
+}
+
+
+function removeWishlistMain(productId) {
+    $.ajax({
+        url: `/WishList/Remove?id=${productId}`,
+        type: 'GET',
+        success: function () {
+            console.log('removed wishlist')
+            getWishlistProducts();
+
+        },
+
+        error: function (xhr) {
+            alert('Error while getting Product. Please try again later.');
+        }
+    });
+
+}
+
+
+
+function getWishlistProducts() {
+    $.ajax({
+        url: `/WishList/GetWishlistProducts`,
+        type: 'GET',
+        success: function (data) {
+            console.log(data);
+            $(".wish").html(data);
+        },
+
+        error: function (xhr) {
+            if (!xhr.status === 401) {
+                alert('Error while getting cart products. Please try again later.');
+            }
+        }
+    });
+}
+
+
+
+
+
 
 
 

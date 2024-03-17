@@ -3,10 +3,12 @@ using Jewellery.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Jewellery.Business.Abstract;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Jevellery.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;

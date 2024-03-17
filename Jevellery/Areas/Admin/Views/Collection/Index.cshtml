@@ -1,0 +1,44 @@
+﻿@model List<Collection>
+
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex">
+            <h5 class="card-title">Collections</h5>
+            <div class="col-2">
+                <a asp-action="create" asp-controller="collection" asp-area="admin" class="btn btn-outline-success">Create Collection</a>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">StartPrice</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var collection in Model)
+                    {
+                        <tr>
+                            <th>@collection.Id</th>
+                            <td>@collection.Title</td>
+                            <td>@collection.Description</td>
+                            <td>@collection.StartTime</td>
+                            <td class="admin-first-img">
+                                <img src="@collection.ImageUrl" />
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-warning text-white" asp-action="edit" asp-controller="collection" asp-area="admin" asp-route-id="@collection.Id">Edit</a>
+                                <a class="btn btn-outline-danger text-white" asp-action="delete" asp-controller="collection" asp-area="admin" asp-route-id="@collection.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

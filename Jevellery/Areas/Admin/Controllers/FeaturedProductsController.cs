@@ -1,11 +1,12 @@
 ﻿using Jevellery.WebUI.Areas.Admin.Models;
 using Jewellery.Business.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Jevellery.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-
+    [Authorize(Roles = "Admin")]
     public class FeaturedProductsController : Controller
     {
         private readonly IProductService _productService;

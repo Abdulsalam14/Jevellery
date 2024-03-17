@@ -1,6 +1,12 @@
 ﻿@using Jevellery.ViewModels.Shop
 @model ShopVM
 
+
+@{
+    var isuser = User.Identity.IsAuthenticated;
+}
+
+
 <div class="shop">
     <section class="shop-first">
         <div class="shop-container">
@@ -46,7 +52,7 @@
                 </div>
             </div>
 
-            
+
             @if (Model.FilterMax > 0 || Model.FilterMin > 0)
             {
 
@@ -56,17 +62,17 @@
                     @{
                         var a = new Dictionary<string, string>();
                         if (Model.CategoryId > 0) a["categoryId"] = Model.CategoryId.ToString();
-                        if (Model.Sort!="default" && !string.IsNullOrEmpty(Model.Sort)) a["sort"] = Model.Sort.ToString();
+                        if (Model.Sort != "default" && !string.IsNullOrEmpty(Model.Sort)) a["sort"] = Model.Sort.ToString();
                         var forMin = new Dictionary<string, string>(a);
                         var forMax = new Dictionary<string, string>(a);
 
-                        if(Model.FilterMax>0) forMin["filterMax"] = Model.FilterMax.ToString();
-                        if (Model.FilterMin>0) forMax["filterMin"] = Model.FilterMin.ToString();
+                        if (Model.FilterMax > 0) forMin["filterMax"] = Model.FilterMax.ToString();
+                        if (Model.FilterMin > 0) forMax["filterMin"] = Model.FilterMin.ToString();
                     }
 
                     @if (Model.FilterMax > 0)
                     {
-                        <a class="remove-filter" asp-action="index"  asp-all-route-data="forMax">
+                        <a class="remove-filter" asp-action="index" asp-all-route-data="forMax">
                             <i class="fa-solid fa-circle-xmark"></i>
                             <span>Max $@Model.FilterMax .00</span>
                         </a>
@@ -83,7 +89,7 @@
             <div class="product-container">
                 @foreach (var item in Model.Products)
                 {
-                    <div class="category-card">
+                    <div class="category-card" id="card@(item.Id)">
                         <a asp-action="index" asp-controller="product" asp-route-productId="@item.Id">
                             <img src="@item.Filename" />
                         </a>
@@ -106,6 +112,22 @@
                                     <i class="bi bi-eye-fill"></i>
                                 </button>
                             </div>
+                            <div class="card-icon-container">
+                                @if (!item.IsWishList)
+                                {
+                                    <button onclick="addWishlist(@item.Id, this)" type="button" class="view">
+                                        <span class="tooltiptext">Add To Wishlist</span>
+                                        <i class="heart-icon fa-regular fa-heart"></i>
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button onclick="removeWishlist(@item.Id, this)" type="button" class="view">
+                                        <span class="tooltiptext">Remove Wishlist</span>
+                                        <i style="color:#db9662" class="heart-icon fa-solid fa-heart"></i>
+                                    </button>
+                                }
+                            </div>
                         </div>
                         <div class="card-text">
                             <span class="card-categoryname">@item.Category.Name</span>
@@ -127,7 +149,7 @@
                     </div>
                 }
             </div>
-            <product-list-pager  current-page=@Model.CurrentPage sort="@Model.Sort" categoryId="@Model.CategoryId" page-count=@Model.PageCount filterMax="@Model.FilterMax" filterMin="@Model.FilterMin" ></product-list-pager>
+            <product-list-pager current-page=@Model.CurrentPage sort="@Model.Sort" categoryId="@Model.CategoryId" page-count=@Model.PageCount filterMax="@Model.FilterMax" filterMin="@Model.FilterMin"></product-list-pager>
             <div class="filter-sect">
                 <div class="filter-sec-top">
                     <button onclick="closeFilterSect()" type="button"><i class="fa-solid fa-xmark"></i></button>
@@ -164,7 +186,7 @@
                         </div>
                         <div class="filter-price-buttons">
                             <button onclick="resetFilter()"
-                                id="filter-reset-btn" type="button" class="explore-btn">
+                                    id="filter-reset-btn" type="button" class="explore-btn">
                                 <span>reset</span>
                             </button>
                             <button type="button" onclick="submitFilter(true)" class="explore-btn">

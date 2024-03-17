@@ -37,7 +37,10 @@ namespace Jevellery.Controllers
                 return NotFound();
             }
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            if (user == null) return Unauthorized();
+            if (user == null)
+            {
+                return  Redirect("/Account/Login");
+            }
             Cart cart = await _cartService.GetAsync(c => c.UserId == user.Id);
             if (cart == null)
             {
@@ -105,7 +108,6 @@ namespace Jevellery.Controllers
             await _cartProductService.UpdateAsync(cartProduct);
             return Ok();
         }
-                     
 
         public async Task<IActionResult> GetCartProducts()
         {

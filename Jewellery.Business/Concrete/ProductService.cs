@@ -8,12 +8,14 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Jewellery.Business.Concrete
 {
     public class ProductService : IProductService
     {
         private readonly IProductDal _productDal;
+
 
         public ProductService( IProductDal productDal)
         {
@@ -71,6 +73,11 @@ namespace Jewellery.Business.Concrete
         {
             return await _productDal.GetListAsync(p => p.IsFeatured == true, p => p.Include(p => p.Category));
 
+        }
+
+        public async Task<List<Product>> GetWishListProducts(List<int> ids)
+        {
+            return await _productDal.GetListAsync(p=>ids.Contains(p.Id));
         }
     }
 }

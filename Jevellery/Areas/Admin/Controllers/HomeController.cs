@@ -2,11 +2,13 @@
 using Jewellery.Business.Abstract;
 using Jewellery.Business.Concrete;
 using Jewellery.Entities.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Jevellery.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
         private readonly IFirstContentService _firstContentService;

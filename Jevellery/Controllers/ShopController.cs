@@ -1,10 +1,14 @@
 ﻿
 using Jevellery.ViewModels.Shop;
+using Jevellery.WebUI.ViewModels.Shop;
 using Jewellery.Business.Abstract;
 using Jewellery.Entities.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
+using NuGet.Packaging.Signing;
 
 namespace Jevellery.Controllers
 {
@@ -12,11 +16,19 @@ namespace Jevellery.Controllers
     {
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
+        private readonly IWishListProductService _wishListProductService;
+        private readonly IWishListService _wishListService;
 
-        public ShopController(IProductService productService, ICategoryService categoryService)
+        private UserManager<AppUser> _userManager;
+
+
+        public ShopController(IProductService productService, ICategoryService categoryService, UserManager<AppUser> userManager, IWishListProductService wishListProductService, IWishListService wishListService)
         {
             _productService = productService;
             _categoryService = categoryService;
+            _userManager = userManager;
+            _wishListProductService = wishListProductService;
+            _wishListService = wishListService;
         }
 
         public async Task<IActionResult> Index(string sort = "default", int page = 1, int categoryId = 0, int filterMin = 0, int filterMax = 0)
@@ -70,20 +82,100 @@ namespace Jevellery.Controllers
             }
             else if (sort == "high")
             {
-                products = products.OrderByDescending(p => p.Price).ToList();
+                products = products.OrderByDescending(p =>
+                {
+                    decimal discountedPrice = p.Discount > 0 ? (p.Price - (p.Price * ((decimal)p.Discount / 100))) : p.Price;
+                    return discountedPrice;
+                }).ToList();
 
             }
             else if (sort == "low")
             {
-                products = products.OrderBy(p => p.Price).ToList();
+                products = products.OrderBy(p =>
+                {
+                    decimal discountedPrice = p.Discount > 0 ? (p.Price - (p.Price * ((decimal)p.Discount / 100))) : p.Price;
+                    return discountedPrice;
+                }).ToList();
             }
+
+            var productsvm = new List<ProductShopVM>()
+            {
+
+            };
+
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (user == null)
+            {
+                var ids = HttpContext.Request.Cookies["favoriteProducts"] != null ?
+                              JsonConvert.DeserializeObject<List<int>>(HttpContext.Request.Cookies["favoriteProducts"]) :
+                              new List<int>();
+
+
+                foreach (var product in products)
+                {
+
+                    var productVm = new ProductShopVM
+                    {
+                        Id = product.Id,
+                        Name = product.Name,
+                        Price = product.Price,
+                        Discount = product.Discount,
+                        Category = product.Category,
+                        CategoryId = product.CategoryId,
+                        Description = product.Description,
+                        Filename = product.Filename,
+                        IsWishList = ids.Contains(product.Id)
+                    };
+
+                    productsvm.Add(productVm);
+                }
+            }
+            else
+            {
+                var wishList = await _wishListService.GetAsync(c => c.UserId == user.Id);
+                if (wishList == null)
+                {
+                    wishList = new WishList()
+                    {
+                        UserId = user.Id,
+                        WishListProducts = new List<WishlistProduct>()
+                    };
+                    await _wishListService.AddAsync(wishList);
+
+                }
+                var wishlistproducts = await _wishListProductService.GetWishListProductsBylistId(wishList.Id);
+
+                foreach (var product in products)
+                {
+
+                    var productVm = new ProductShopVM
+                    {
+                        Id = product.Id,
+                        Name = product.Name,
+                        Price = product.Price,
+                        Discount = product.Discount,
+                        Category = product.Category,
+                        CategoryId = product.CategoryId,
+                        Description = product.Description,
+                        Filename = product.Filename,
+                        IsWishList = wishlistproducts.Any(wp => wp.Product.Id == product.Id)
+                    };
+
+                    productsvm.Add(productVm);
+                }
+            }
+
+
             int pageSize = 4;
             var PageCount = ((int)Math.Ceiling(products.Count / (double)pageSize));
-            products = products.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            productsvm = productsvm.Skip((page - 1) * pageSize).Take(pageSize).ToList();
             var CurrentPage = page;
+
+
+
             var model = new ShopVM
             {
-                Products = products,
+                Products = productsvm,
                 Selects = new List<SelectListItem>
                 {
                     new SelectListItem

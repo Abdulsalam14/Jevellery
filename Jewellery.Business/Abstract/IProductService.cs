@@ -20,6 +20,7 @@ namespace Jewellery.Business.Abstract
         Task<List<Product>> GetNotNewArrivalProducts();
         Task<List<Product>> GetNotFeaturedProducts();
         Task<List<Product>> GetFeaturedProducts();
+        Task<List<Product>> GetWishListProducts(List<int> ids);
 
     }
 }

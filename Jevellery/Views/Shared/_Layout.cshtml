@@ -18,6 +18,7 @@
 
 </head>
 <body>
+
     @{
         var currentController = ViewContext.RouteData.Values["controller"]?.ToString().ToLower();
         var color = currentController == "shop" || currentController == "product" ? "white; " : "";
@@ -52,6 +53,13 @@
                     </div>
                 </a>
             }
+            <a asp-action="index" asp-controller="wishlist">
+                <div class="header-cart" id="header-cart">
+                    <div class="cart-icon">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                </div>
+            </a>
             <div class="header-cart" id="header-cart" onclick="showCart()">
                 <span class="header-cart-sum">$0.00</span>
                 <div class="cart-icon">
